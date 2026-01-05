@@ -53,13 +53,24 @@ const Settings: React.FC<SettingsProps> = ({ settings, onSave, requestNotificati
     setEditingCarId(newCar.id);
   };
 
+  const [deleteConfirmationId, setDeleteConfirmationId] = useState<string | null>(null);
+
   const handleDeleteCar = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (confirm('Naozaj chcete vymazať toto auto? Všetky jazdy s ním spojené budú mať neznáme auto.')) {
+    e.preventDefault();
+
+    // If already confirming this car, proceed with delete
+    if (deleteConfirmationId === id) {
       const updated = localCars.filter(c => c.id !== id);
       setLocalCars(updated);
-      // Save immediately to persist deletion
       onSave({ ...settings, cars: updated });
+      setDeleteConfirmationId(null);
+    } else {
+      // Otherwise set confirmation mode
+      setDeleteConfirmationId(id);
+
+      // Auto-reset confirmation after 3 seconds if not clicked
+      setTimeout(() => setDeleteConfirmationId(current => current === id ? null : current), 3000);
     }
   };
 
@@ -135,11 +146,18 @@ const Settings: React.FC<SettingsProps> = ({ settings, onSave, requestNotificati
                   </div>
                   <button
                     onClick={(e) => handleDeleteCar(car.id, e)}
-                    className="p-2 text-zinc-300 hover:text-red-500 transition-colors"
+                    className={`p-2 transition-colors z-10 relative rounded-full ${deleteConfirmationId === car.id ? 'bg-red-500 text-white shadow-md' : 'text-zinc-300 hover:text-red-500'}`}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
+                    {deleteConfirmationId === car.id ? (
+                      // Confirmation State - Trash with Checkmark or similar, generic trash for now but highlighted
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    )}
                   </button>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

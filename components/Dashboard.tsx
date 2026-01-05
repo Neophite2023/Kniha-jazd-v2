@@ -6,7 +6,7 @@ interface DashboardProps {
   recentTrips: Trip[];
   activeTrip: ActiveTrip | null;
   settings: AppSettings;
-  activeCar: Car;
+  activeCar: Car | undefined;
   onActiveCarChange: (id: string) => void;
   lastOdometer: number;
   onViewAll: () => void;
@@ -24,6 +24,16 @@ const Dashboard: React.FC<DashboardProps> = ({
   onViewAll,
   onAddTrip
 }) => {
+  if (!activeCar) {
+    return (
+      <div className="space-y-4 animate-in fade-in duration-500">
+        <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm text-center">
+          <p className="text-zinc-400 text-sm font-medium">Pridajte svoje prvé auto v nastaveniach</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4 animate-in fade-in duration-500">
       <div className="bg-white rounded-3xl p-5 border border-zinc-200 shadow-sm relative overflow-hidden">

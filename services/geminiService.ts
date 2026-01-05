@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { Trip, AppSettings } from "../types";
+import { Trip, AppSettings, Car } from "../types";
 
 // Bezpečné získanie API kľúča
 const getApiKey = () => {
@@ -12,7 +12,7 @@ const getApiKey = () => {
   }
 };
 
-export const getDrivingInsights = async (trips: Trip[], settings: AppSettings) => {
+export const getDrivingInsights = async (trips: Trip[], settings: AppSettings, activeCar?: Car) => {
   const apiKey = getApiKey();
   if (!apiKey) return "Pre analýzu jázd pomocou AI je potrebné nastaviť API kľúč.";
   
@@ -24,12 +24,14 @@ export const getDrivingInsights = async (trips: Trip[], settings: AppSettings) =
     `Dátum: ${t.date}, Vzdialenosť: ${t.distanceKm}km, Cena: ${t.totalCost.toFixed(2)}€`
   ).join('\n');
 
+  const consumption = activeCar?.averageConsumption || 6.5;
+
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Analyzuj túto históriu jázd (posledných 5):
       ${summary}
-      Aktuálna spotreba auta: ${settings.averageConsumption} L/100km.
+      Aktuálna spotreba auta: ${consumption} L/100km.
       Aktuálna cena benzínu: ${settings.fuelPrice} €/L.
       Povedz mi v 2-3 vetách v slovenčine, či sú tieto náklady primerané a daj mi jeden tip na šetrenie palivom.`,
     });

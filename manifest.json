@@ -1,0 +1,18 @@
+{
+  "name": "Kniha Jázd Pro",
+  "short_name": "Kniha Jázd",
+  "description": "Profesionálna evidencia jázd",
+  "start_url": "/Kniha-jazd-v2/",
+  "scope": "/Kniha-jazd-v2/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#f8fafc",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

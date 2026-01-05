@@ -164,14 +164,14 @@ const App: React.FC = () => {
   }, [notifiedReminders]);
 
   const requestNotificationPermission = async () => {
-    if (!('Notification' in window)) return;
+    if (typeof Notification === 'undefined') return;
     if (Notification.permission === 'default') {
       await Notification.requestPermission();
     }
   };
 
   useEffect(() => {
-    if (Notification.permission !== 'granted') return;
+    if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
 
     const lastOdometer = trips.length > 0 ? trips[0].endOdometer : 0;
     const now = new Date();

@@ -9,9 +9,35 @@ const STORAGE_KEY_TRIPS = 'kniha_jazd_trips_v1';
 const STORAGE_KEY_SETTINGS = 'kniha_jazd_settings_v1';
 const STORAGE_KEY_ACTIVE = 'kniha_jazd_active_v1';
 
+// Safe storage wrapper to prevent crashes in private mode or restricted environments
+const safeStorage = {
+  getItem: (key: string) => {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      console.warn('Storage access failed:', e);
+      return null;
+    }
+  },
+  setItem: (key: string, value: string) => {
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {
+      console.warn('Storage saving failed:', e);
+    }
+  },
+  removeItem: (key: string) => {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {
+      console.warn('Storage removal failed:', e);
+    }
+  }
+};
+
 const App: React.FC = () => {
   const [trips, setTrips] = useState<Trip[]>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY_TRIPS);
+    const stored = safeStorage.getItem(STORAGE_KEY_TRIPS);
     if (!stored) return [];
     try {
       const parsed = JSON.parse(stored);
@@ -22,7 +48,7 @@ const App: React.FC = () => {
   });
 
   const [activeTrip, setActiveTrip] = useState<ActiveTrip | null>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY_ACTIVE);
+    const stored = safeStorage.getItem(STORAGE_KEY_ACTIVE);
     if (!stored) return null;
     try {
       return JSON.parse(stored);
@@ -32,7 +58,7 @@ const App: React.FC = () => {
   });
 
   const [settings, setSettings] = useState<AppSettings>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY_SETTINGS);
+    const stored = safeStorage.getItem(STORAGE_KEY_SETTINGS);
     const defaults: AppSettings = {
       fuelPrice: 1.65,
       cars: [],
@@ -129,12 +155,12 @@ const App: React.FC = () => {
   const [view, setView] = useState<'dashboard' | 'add' | 'history' | 'settings' | 'info'>('dashboard');
 
   const [notifiedReminders, setNotifiedReminders] = useState<string[]>(() => {
-    const stored = localStorage.getItem('kniha_jazd_notifications_v1');
+    const stored = safeStorage.getItem('kniha_jazd_notifications_v1');
     return stored ? JSON.parse(stored) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('kniha_jazd_notifications_v1', JSON.stringify(notifiedReminders));
+    safeStorage.setItem('kniha_jazd_notifications_v1', JSON.stringify(notifiedReminders));
   }, [notifiedReminders]);
 
   const requestNotificationPermission = async () => {
@@ -200,18 +226,18 @@ const App: React.FC = () => {
   }, [settings.cars, trips, notifiedReminders]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_TRIPS, JSON.stringify(trips));
+    safeStorage.setItem(STORAGE_KEY_TRIPS, JSON.stringify(trips));
   }, [trips]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+    safeStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
   }, [settings]);
 
   useEffect(() => {
     if (activeTrip) {
-      localStorage.setItem(STORAGE_KEY_ACTIVE, JSON.stringify(activeTrip));
+      safeStorage.setItem(STORAGE_KEY_ACTIVE, JSON.stringify(activeTrip));
     } else {
-      localStorage.removeItem(STORAGE_KEY_ACTIVE);
+      safeStorage.removeItem(STORAGE_KEY_ACTIVE);
     }
   }, [activeTrip]);
 

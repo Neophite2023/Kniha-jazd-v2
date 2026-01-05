@@ -27,7 +27,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   if (!activeCar) {
     return (
       <div className="space-y-4 animate-in fade-in duration-500">
-        <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm text-center">
+        <div className="bg-zinc-900 rounded-3xl p-8 border border-zinc-800 shadow-sm text-center">
           <p className="text-zinc-400 text-sm font-medium">Pridajte svoje prvé auto v nastaveniach</p>
         </div>
       </div>
@@ -36,14 +36,14 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="space-y-4 animate-in fade-in duration-500">
-      <div className="bg-white rounded-3xl p-5 border border-zinc-200 shadow-sm relative overflow-hidden">
+      <div className="bg-zinc-900 rounded-3xl p-5 border border-zinc-800 shadow-sm relative overflow-hidden">
         {/* Car Selector */}
         <div className="absolute top-5 right-5 z-10">
           {settings.cars.length > 1 && (
             <select
               value={activeCar.id}
               onChange={(e) => onActiveCarChange(e.target.value)}
-              className="bg-zinc-100 text-zinc-900 text-[10px] font-bold uppercase tracking-wide py-1.5 px-3 rounded-full outline-none border-none cursor-pointer hover:bg-zinc-200 transition-colors appearance-none"
+              className="bg-zinc-800 text-zinc-100 text-[10px] font-bold uppercase tracking-wide py-1.5 px-3 rounded-full outline-none border-none cursor-pointer hover:bg-zinc-700 transition-colors appearance-none"
               style={{ WebkitAppearance: 'none' }}
             >
               {settings.cars.map(c => (
@@ -57,16 +57,16 @@ const Dashboard: React.FC<DashboardProps> = ({
           {activeCar.name} • {stats.currentMonthName} {stats.currentYear}
         </span>
         <div className="flex items-baseline gap-2 mt-2">
-          <span className="text-5xl font-bold tracking-tight text-zinc-950">{stats.monthlyDistance.toFixed(0)}</span>
-          <span className="text-xl font-medium text-zinc-400">km</span>
+          <span className="text-5xl font-bold tracking-tight text-white">{stats.monthlyDistance.toFixed(0)}</span>
+          <span className="text-xl font-medium text-zinc-500">km</span>
         </div>
         {activeCar.licensePlate && (
-          <div className="mt-2 text-[10px] font-mono text-zinc-300 font-bold tracking-wider">{activeCar.licensePlate}</div>
+          <div className="mt-2 text-[10px] font-mono text-zinc-500 font-bold tracking-wider">{activeCar.licensePlate}</div>
         )}
       </div>
 
       {activeCar.serviceReminders && activeCar.serviceReminders.length > 0 && (
-        <div className="bg-white rounded-3xl p-5 border border-zinc-200 shadow-sm space-y-5">
+        <div className="bg-zinc-900 rounded-3xl p-5 border border-zinc-800 shadow-sm space-y-5">
           <h3 className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest px-1">Servisné Pripomienky</h3>
           <div className="space-y-6">
             {activeCar.serviceReminders.map(reminder => {
@@ -85,19 +85,19 @@ const Dashboard: React.FC<DashboardProps> = ({
                         <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block mb-0.5">
                           {reminder.name}
                         </span>
-                        <div className="text-lg font-bold text-zinc-950 leading-none">
+                        <div className="text-lg font-bold text-zinc-50 leading-none">
                           {Math.max(0, daysRemaining).toLocaleString()}
-                          <span className="text-[10px] font-medium text-zinc-400 ml-1.5 uppercase">dní do termínu</span>
+                          <span className="text-[10px] font-medium text-zinc-500 ml-1.5 uppercase">dní do termínu</span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-[10px] font-bold text-zinc-300">termín: {dateFormatted}</span>
+                        <span className="text-[10px] font-bold text-zinc-500">termín: {dateFormatted}</span>
                       </div>
                     </div>
 
-                    <div className="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
                       <div
-                        className={`h-full transition-all duration-1000 ${daysRemaining < 14 ? 'bg-red-500' : 'bg-zinc-950'}`}
+                        className={`h-full transition-all duration-1000 ${daysRemaining < 14 ? 'bg-red-500' : 'bg-white'}`}
                         style={{ width: daysRemaining <= 0 ? '100%' : daysRemaining < 14 ? '95%' : '10%' }}
                       />
                     </div>
@@ -116,19 +116,19 @@ const Dashboard: React.FC<DashboardProps> = ({
                       <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block mb-0.5">
                         {reminder.name}
                       </span>
-                      <div className="text-lg font-bold text-zinc-950 leading-none">
+                      <div className="text-lg font-bold text-zinc-50 leading-none">
                         {Math.max(0, remaining).toLocaleString()}
-                        <span className="text-[10px] font-medium text-zinc-400 ml-1.5 uppercase">km do cieľa</span>
+                        <span className="text-[10px] font-medium text-zinc-500 ml-1.5 uppercase">km do cieľa</span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-bold text-zinc-300">pri {((reminder.lastServiceOdometer || 0) + (reminder.interval || 0)).toLocaleString()} km</span>
+                      <span className="text-[10px] font-bold text-zinc-500">pri {((reminder.lastServiceOdometer || 0) + (reminder.interval || 0)).toLocaleString()} km</span>
                     </div>
                   </div>
 
-                  <div className="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
                     <div
-                      className={`h-full transition-all duration-1000 ${remaining < 1000 ? 'bg-red-500' : 'bg-zinc-950'}`}
+                      className={`h-full transition-all duration-1000 ${remaining < 1000 ? 'bg-red-500' : 'bg-white'}`}
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -140,7 +140,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       )}
 
       {activeTrip && (
-        <div className="bg-zinc-950 rounded-3xl p-4 flex items-center justify-between shadow-xl ring-1 ring-white/10">
+        <div className="bg-zinc-800 rounded-3xl p-4 flex items-center justify-between shadow-xl ring-1 ring-white/10">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-white text-zinc-950 rounded-2xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -170,29 +170,29 @@ const Dashboard: React.FC<DashboardProps> = ({
           <button onClick={onViewAll} className="text-xs font-medium text-zinc-500 hover:text-white transition-colors">Všetky</button>
         </div>
 
-        <div className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm">
+        <div className="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 shadow-sm">
           {recentTrips.length > 0 ? (
             recentTrips.map((trip, idx) => (
-              <div key={trip.id} className={`p-4 flex justify-between items-center active:bg-zinc-50 transition-colors ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-100' : ''}`}>
+              <div key={trip.id} className={`p-4 flex justify-between items-center active:bg-zinc-800 transition-colors ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-800' : ''}`}>
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-zinc-50 rounded-xl flex items-center justify-center text-zinc-400">
+                  <div className="w-10 h-10 bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-400">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
                   <div>
-                    <div className="font-bold text-zinc-950 text-base tracking-tight">{trip.distanceKm.toFixed(1)} km</div>
-                    <div className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+                    <div className="font-bold text-zinc-50 text-base tracking-tight">{trip.distanceKm.toFixed(1)} km</div>
+                    <div className="text-xs font-medium text-zinc-500 uppercase tracking-wide">
                       {new Date(trip.date).toLocaleDateString('sk-SK', { day: '2-digit', month: 'short' })} • {trip.startTime}
                     </div>
                   </div>
                 </div>
                 <div className="text-right flex items-center gap-3">
                   <div>
-                    <div className="font-bold text-zinc-950 text-sm tabular-nums">{trip.totalCost.toFixed(2)} €</div>
-                    <div className="text-[10px] font-medium text-zinc-400 uppercase">{trip.fuelConsumed.toFixed(1)} L</div>
+                    <div className="font-bold text-zinc-50 text-sm tabular-nums">{trip.totalCost.toFixed(2)} €</div>
+                    <div className="text-[10px] font-medium text-zinc-500 uppercase">{trip.fuelConsumed.toFixed(1)} L</div>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </div>

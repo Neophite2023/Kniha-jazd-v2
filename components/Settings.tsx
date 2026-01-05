@@ -16,7 +16,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, onSave, requestNotificati
   const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
 
   useEffect(() => {
-    if ('Notification' in window && Notification.permission === 'granted') {
+    if (typeof Notification !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
       setNotificationPermissionGranted(true);
     }
   }, []);
@@ -179,6 +179,10 @@ const Settings: React.FC<SettingsProps> = ({ settings, onSave, requestNotificati
               <button
                 type="button"
                 onClick={async () => {
+                  if (typeof Notification === 'undefined') {
+                    alert('Váš prehliadač nepodporuje notifikácie.');
+                    return;
+                  }
                   if (Notification.permission === 'denied') {
                     alert('Notifikácie sú zablokované v nastaveniach prehliadača. Prosím, povoľte ich manuálne kliknutím na ikonu zámku v adresnom riadku.');
                     return;
@@ -192,7 +196,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, onSave, requestNotificati
                   : 'bg-zinc-950 text-white active:scale-95 shadow-lg shadow-zinc-200'
                   }`}
               >
-                {notificationPermissionGranted ? 'Povolené' : Notification.permission === 'denied' ? 'Zablokované' : 'Povoliť'}
+                {notificationPermissionGranted ? 'Povolené' : (typeof Notification !== 'undefined' && Notification.permission === 'denied') ? 'Zablokované' : 'Povoliť'}
               </button>
             </div>
           </div>

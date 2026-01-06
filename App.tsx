@@ -62,7 +62,8 @@ const App: React.FC = () => {
     const defaults: AppSettings = {
       fuelPrice: 1.65,
       cars: [],
-      lastActiveCarId: ''
+      lastActiveCarId: '',
+      theme: 'system'
     };
 
     if (!stored) {
@@ -116,7 +117,8 @@ const App: React.FC = () => {
         return {
           fuelPrice: parsed.fuelPrice || 1.65,
           cars: [migratedCar],
-          lastActiveCarId: migratedCar.id
+          lastActiveCarId: migratedCar.id,
+          theme: parsed.theme || 'system'
         };
       }
 
@@ -162,6 +164,36 @@ const App: React.FC = () => {
   useEffect(() => {
     safeStorage.setItem('kniha_jazd_notifications_v1', JSON.stringify(notifiedReminders));
   }, [notifiedReminders]);
+
+  // Theme handling effect
+  useEffect(() => {
+    const applyTheme = () => {
+      const isDark =
+        settings.theme === 'dark' ||
+        (settings.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        // Update meta theme-color for mobile browsers
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#09090b');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#ffffff');
+      }
+    };
+
+    applyTheme();
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => {
+      if (settings.theme === 'system') {
+        applyTheme();
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [settings.theme]);
 
   const requestNotificationPermission = async () => {
     if (typeof Notification === 'undefined') return;
@@ -300,8 +332,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex flex-col text-zinc-200 selection:bg-zinc-500/30 antialiased overflow-x-hidden relative">
-      <header className="sticky top-0 z-50 bg-zinc-900/80 backdrop-blur-xl border-b border-zinc-800 px-6 py-4 flex justify-center items-center">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col text-zinc-900 dark:text-zinc-200 selection:bg-zinc-200 dark:selection:bg-zinc-500/30 antialiased overflow-x-hidden relative transition-colors duration-300">
+      <header className="sticky top-0 z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 flex justify-center items-center">
         <h1 className="text-lg font-semibold tracking-tight">Kniha Jázd</h1>
       </header>
 
@@ -363,92 +395,92 @@ const App: React.FC = () => {
           )}
           {view === 'info' && (
             <div className="space-y-6 animate-in fade-in duration-500">
-              <div className="bg-zinc-900 rounded-3xl p-6 border border-zinc-800 shadow-sm space-y-6">
+              <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-6">
                 <div>
-                  <h3 className="text-lg font-bold text-zinc-100 mb-2">Prehľad funkcií</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-2">Prehľad funkcií</h3>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
                     Kniha Jázd Pro je navrhnutá pre jednoduchú a prehľadnú evidenciu vašich ciest s dôrazom na rýchlosť a natívny zážitok.
                   </p>
                 </div>
 
                 <div className="space-y-4">
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-100 shrink-0">
+                    <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-zinc-100">Mesačné štatistiky</h4>
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100">Mesačné štatistiky</h4>
                       <p className="text-xs text-zinc-500">Okamžitý prehľad o najazdených kilometroch v aktuálnom mesiaci priamo na hlavnej obrazovke.</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-zinc-50 rounded-xl flex items-center justify-center text-zinc-950 shrink-0">
+                    <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-zinc-100">Inteligentné pripomienky</h4>
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100">Inteligentné pripomienky</h4>
                       <p className="text-xs text-zinc-500">Sledujte zostávajúce kilometre do servisu, výmeny oleja alebo klimatizácie s grafickým ukazovateľom.</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-zinc-50 rounded-xl flex items-center justify-center text-zinc-950 shrink-0">
+                    <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-zinc-100">Výpočet nákladov</h4>
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100">Výpočet nákladov</h4>
                       <p className="text-xs text-zinc-500">Aplikácia automaticky počíta cenu paliva a spotrebu pre každú jazdu na základe vašich nastavení.</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-zinc-50 rounded-xl flex items-center justify-center text-zinc-950 shrink-0">
+                    <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-zinc-100">Rýchly záznam</h4>
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100">Rýchly záznam</h4>
                       <p className="text-xs text-zinc-500">Odštartujte jazdu jedným kliknutím. Aplikácia si pamätá váš posledný stav tachometra.</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-100 shrink-0">
+                    <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-zinc-100">Správa flotily</h4>
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100">Správa flotily</h4>
                       <p className="text-xs text-zinc-500">Pridajte neobmedzený počet áut a spravujte celú firemnú alebo rodinnú flotilu na jednom mieste.</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-100 shrink-0">
+                    <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-zinc-100">Offline fungovanie (PWA)</h4>
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100">Offline fungovanie (PWA)</h4>
                       <p className="text-xs text-zinc-500">Pridajte si apku na plochu iPhone. Funguje bleskovo aj bez internetu a ukladá dáta priamo v zariadení.</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-zinc-800">
+                <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800">
                   <button
                     onClick={() => setView('dashboard')}
-                    className="w-full py-3 bg-zinc-100 text-zinc-950 rounded-2xl font-bold text-sm transition-all active:scale-[0.98]"
+                    className="w-full py-3 bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 rounded-2xl font-bold text-sm transition-all active:scale-[0.98]"
                   >
                     Rozumiem
                   </button>
@@ -459,11 +491,11 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-zinc-900/80 backdrop-blur-3xl border-t border-zinc-800 pb-[env(safe-area-inset-bottom)]">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-3xl border-t border-zinc-200 dark:border-zinc-800 pb-[env(safe-area-inset-bottom)]">
         <div className="max-w-lg mx-auto flex justify-between items-center h-16 px-6">
           <button
             onClick={() => setView('dashboard')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'dashboard' ? 'text-zinc-50' : 'text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'dashboard' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'dashboard' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -473,7 +505,7 @@ const App: React.FC = () => {
 
           <button
             onClick={() => setView('history')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'history' ? 'text-zinc-50' : 'text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'history' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'history' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -483,9 +515,9 @@ const App: React.FC = () => {
 
           <button
             onClick={() => view === 'add' ? setView('dashboard') : setView('add')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'add' ? 'text-zinc-50' : 'text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'add' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
           >
-            <div className={`p-1.5 rounded-full shadow-lg transition-transform active:scale-95 ${activeTrip ? 'bg-red-500 text-white animate-pulse' : view === 'add' ? 'bg-zinc-50 text-zinc-950' : 'bg-zinc-900 text-zinc-200 border border-zinc-700'}`}>
+            <div className={`p-1.5 rounded-full shadow-lg transition-transform active:scale-95 ${activeTrip ? 'bg-red-500 text-white animate-pulse' : view === 'add' ? 'bg-zinc-950 dark:bg-zinc-50 text-white dark:text-zinc-950' : 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={activeTrip ? "M6 18L18 6M6 6l12 12" : "M12 4v16m8-8H4"} />
               </svg>
@@ -494,7 +526,7 @@ const App: React.FC = () => {
 
           <button
             onClick={() => setView('info')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'info' ? 'text-zinc-50' : 'text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'info' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'info' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -504,7 +536,7 @@ const App: React.FC = () => {
 
           <button
             onClick={() => setView('settings')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'settings' ? 'text-zinc-50' : 'text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'settings' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'settings' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />

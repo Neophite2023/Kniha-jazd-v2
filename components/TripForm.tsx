@@ -28,6 +28,7 @@ const TripForm: React.FC<TripFormProps> = ({
   const [note, setNote] = useState<string>(activeTrip?.note || '');
   const [currentTime, setCurrentTime] = useState<string>('');
   const [currentDate, setCurrentDate] = useState<string>('');
+  const [isCapturingGps, setIsCapturingGps] = useState<boolean>(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -66,7 +67,10 @@ const TripForm: React.FC<TripFormProps> = ({
     const startVal = parseFloat(odometer);
     if (isNaN(startVal) || startVal < 0) return;
 
+    setIsCapturingGps(true);
     const gps = await getGpsLocation();
+    setIsCapturingGps(false);
+
     const now = new Date();
     onStart({
       carId: activeCar.id,
@@ -86,7 +90,10 @@ const TripForm: React.FC<TripFormProps> = ({
     const endVal = parseFloat(odometer);
     if (isNaN(endVal) || endVal <= activeTrip.startOdometer) return;
 
+    setIsCapturingGps(true);
     const gps = await getGpsLocation();
+    setIsCapturingGps(false);
+
     const distance = endVal - activeTrip.startOdometer;
     const fuelConsumed = (distance / 100) * activeCarConsumption;
     const totalCost = fuelConsumed * settings.fuelPrice;
@@ -189,9 +196,18 @@ const TripForm: React.FC<TripFormProps> = ({
         <div className="space-y-4 px-2">
           <button
             type="submit"
-            className="w-full py-4 bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 rounded-2xl font-bold text-base transition-all active:scale-[0.98] shadow-lg shadow-zinc-200 dark:shadow-zinc-900/20"
+            disabled={isCapturingGps}
+            className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98] shadow-lg flex items-center justify-center gap-3 ${isCapturingGps ? 'bg-zinc-400 dark:bg-zinc-700 cursor-not-allowed' : 'bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-zinc-200 dark:shadow-zinc-900/20'}`}
           >
-            {activeTrip ? 'Ukončiť Jazdu' : 'Zahájiť Jazdu'}
+            {isCapturingGps && (
+              <svg className="animate-spin h-5 w-5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            )}
+            {isCapturingGps
+              ? 'Snímam GPS polohu...'
+              : activeTrip ? 'Ukončiť Jazdu' : 'Zahájiť Jazdu'}
           </button>
 
           <button

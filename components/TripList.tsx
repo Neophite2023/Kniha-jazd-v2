@@ -51,6 +51,11 @@ const TripList: React.FC<TripListProps> = ({ trips, onDelete, onBack }) => {
                     <div className="text-[10px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
                       {new Date(trip.date).toLocaleDateString('sk-SK', { day: '2-digit', month: 'short', year: 'numeric' })} • {trip.startTime} – {trip.endTime}
                     </div>
+                    {(trip.startGps || trip.endGps) && (
+                      <div className="text-[9px] font-medium text-zinc-400 dark:text-zinc-500 tabular-nums mt-0.5">
+                        GPS: {trip.startGps || '?'} → {trip.endGps || '?'}
+                      </div>
+                    )}
                   </div>
                 </div>
 

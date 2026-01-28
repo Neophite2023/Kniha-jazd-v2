@@ -42,28 +42,51 @@ const TripForm: React.FC<TripFormProps> = ({
 
   const generateId = () => Math.random().toString(36).substring(2, 10);
 
-  const handleStart = (e: React.FormEvent) => {
+  const getGpsLocation = (): Promise<string> => {
+    return new Promise((resolve) => {
+      if (!navigator.geolocation) {
+        resolve('GPS nedostupné');
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve(`${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`);
+        },
+        (error) => {
+          console.warn('GPS error:', error);
+          resolve('GPS nedostupné');
+        },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+      );
+    });
+  };
+
+  const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
     const startVal = parseFloat(odometer);
     if (isNaN(startVal) || startVal < 0) return;
+
+    const gps = await getGpsLocation();
     const now = new Date();
     onStart({
       carId: activeCar.id,
       startDate: now.toISOString().split('T')[0],
       startTime: now.toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' }),
       startOdometer: startVal,
+      startGps: gps,
       note: note,
     });
   };
 
   const activeCarConsumption = activeCar.averageConsumption;
 
-  const handleEnd = (e: React.FormEvent) => {
+  const handleEnd = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!activeTrip) return;
     const endVal = parseFloat(odometer);
     if (isNaN(endVal) || endVal <= activeTrip.startOdometer) return;
 
+    const gps = await getGpsLocation();
     const distance = endVal - activeTrip.startOdometer;
     const fuelConsumed = (distance / 100) * activeCarConsumption;
     const totalCost = fuelConsumed * settings.fuelPrice;
@@ -79,6 +102,8 @@ const TripForm: React.FC<TripFormProps> = ({
       distanceKm: parseFloat(distance.toFixed(2)),
       startOdometer: activeTrip.startOdometer,
       endOdometer: endVal,
+      startGps: activeTrip.startGps,
+      endGps: gps,
       fuelPriceAtTime: settings.fuelPrice,
       consumptionAtTime: activeCarConsumption,
       fuelConsumed: parseFloat(fuelConsumed.toFixed(2)),

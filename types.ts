@@ -22,6 +22,8 @@ export interface Trip {
   note?: string;
   startOdometer: number;
   endOdometer: number;
+  startGps?: string;
+  endGps?: string;
 }
 
 export interface ActiveTrip {
@@ -29,6 +31,7 @@ export interface ActiveTrip {
   startDate: string;
   startTime: string;
   startOdometer: number;
+  startGps?: string;
   note?: string;
 }
 

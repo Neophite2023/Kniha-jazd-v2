@@ -1,10 +1,20 @@
-import { Trip } from '../types';
+import { Trip, Car } from '../types';
 
-export const exportToCsv = (trips: Trip[]) => {
-    if (!trips || trips.length === 0) {
-        alert('Žiadne jazdy na exportovanie.');
+export const exportToCsv = (trips: Trip[], car: Car) => {
+    // Filtrujeme jazdy len pre toto konkrétne auto
+    const carTrips = trips.filter(t => t.carId === car.id);
+
+    if (carTrips.length === 0) {
+        alert(`Žiadne jazdy pre vozidlo ${car.name} (${car.licensePlate || 'bez EČV'}) na exportovanie.`);
         return;
     }
+
+    // Info o aute na začiatku CSV
+    const carInfo = [
+        `Vozidlo:;${car.name}`,
+        `EČV:;${car.licensePlate || 'Nezadané'}`,
+        '' // Prázdny riadok
+    ];
 
     // Hlavička CSV
     const headers = [
@@ -23,7 +33,7 @@ export const exportToCsv = (trips: Trip[]) => {
     ];
 
     // Mapovanie dát na riadky
-    const rows = trips.map(trip => [
+    const rows = carTrips.map(trip => [
         trip.date,
         trip.startTime,
         trip.endTime,
@@ -38,13 +48,14 @@ export const exportToCsv = (trips: Trip[]) => {
         `"${(trip.note || '').replace(/"/g, '""')}"`
     ]);
 
-    // Spojenie do jedného reťazca (používame bodkočiarku pre Excel v SK/CZ)
+    // Spojenie do jedného reťazca
     const csvContent = [
+        ...carInfo,
         headers.join(';'),
         ...rows.map(row => row.join(';'))
     ].join('\n');
 
-    // Pridanie BOM (Byte Order Mark) pre správne kódovanie UTF-8 v Exceli
+    // Pridanie BOM
     const BOM = '\uFEFF';
     const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
 
@@ -53,9 +64,10 @@ export const exportToCsv = (trips: Trip[]) => {
     const link = document.createElement('a');
     const now = new Date();
     const dateStr = now.toISOString().split('T')[0];
+    const safePlate = (car.licensePlate || car.name).replace(/[^a-z0-9]/gi, '_');
 
     link.setAttribute('href', url);
-    link.setAttribute('download', `kniha_jazd_${dateStr}.csv`);
+    link.setAttribute('download', `kniha_jazd_${safePlate}_${dateStr}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();

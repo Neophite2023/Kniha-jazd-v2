@@ -322,17 +322,24 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
                     <div className="font-bold text-zinc-900 dark:text-zinc-200">{car.name}</div>
                     <div className="text-xs text-zinc-400 dark:text-zinc-500 font-mono font-bold uppercase">{car.licensePlate || 'Bez EČV'}</div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <div className="text-[10px] uppercase font-bold text-zinc-400 dark:text-zinc-500">Spotreba</div>
-                      <div className="text-sm font-bold text-zinc-900 dark:text-zinc-200">{car.averageConsumption} <span className="text-[10px] font-normal text-zinc-400 dark:text-zinc-500">L/100</span></div>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        exportToCsv(trips, car);
+                      }}
+                      className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                      title="Exportovať do CSV"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    </button>
                     <button
                       onClick={(e) => handleDeleteCar(car.id, e)}
                       className={`p-2 transition-colors z-10 relative rounded-full ${deleteConfirmationId === car.id ? 'bg-red-500 text-white shadow-md' : 'text-zinc-400 dark:text-zinc-300 hover:text-red-500'}`}
                     >
                       {deleteConfirmationId === car.id ? (
-                        // Confirmation State - Trash with Checkmark or similar, generic trash for now but highlighted
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
@@ -395,25 +402,6 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
             </button>
           </div>
 
-          <div className="space-y-2">
-            <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Správa dát</h3>
-            <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm">
-              <button
-                onClick={() => exportToCsv(trips)}
-                className="w-full p-4 flex items-center justify-between gap-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-              >
-                <div className="text-left">
-                  <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 block">Exportovať jazdy</span>
-                  <p className="text-[10px] text-zinc-500 dark:text-zinc-500 font-medium">Stiahnuť všetky záznamy ako súbor .CSV</p>
-                </div>
-                <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                </div>
-              </button>
-            </div>
-          </div>
 
           <div className="mt-8 text-center">
             <div className="text-[10px] text-zinc-300 dark:text-zinc-700 font-bold uppercase tracking-[0.4em]">Kniha Jázd Pro</div>

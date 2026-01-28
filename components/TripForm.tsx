@@ -49,15 +49,32 @@ const TripForm: React.FC<TripFormProps> = ({
         resolve('GPS nedostupné');
         return;
       }
+      const options: PositionOptions = {
+        enableHighAccuracy: true,
+        timeout: 15000, // Zvýšené na 15 sekúnd
+        maximumAge: 10000 // Povoliť 10s starú cached polohu pre rýchlosť
+      };
+
       navigator.geolocation.getCurrentPosition(
         (position) => {
           resolve(`${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`);
         },
         (error) => {
           console.warn('GPS error:', error);
-          resolve('GPS nedostupné');
+          if (error.code === 3) { // Timeout
+            // Skúsíme ešte raz bez vysokej presnosti (rýchlejšie v budovách)
+            navigator.geolocation.getCurrentPosition(
+              (pos) => resolve(`${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`),
+              () => resolve('GPS nedostupné (timeout)'),
+              { enableHighAccuracy: false, timeout: 5000 }
+            );
+          } else if (error.code === 1) {
+            resolve('GPS zamietnuté');
+          } else {
+            resolve('GPS nedostupné');
+          }
         },
-        { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+        options
       );
     });
   };

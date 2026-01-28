@@ -9,107 +9,57 @@ export const exportToCsv = (trips: Trip[], car: Car) => {
         return;
     }
 
-    // Definícia šírok stĺpcov (v bodoch)
-    const colWidths = {
-        date: 80,
-        time: 50,
-        dist: 70,
-        odo: 85,
-        gps: 150,
-        price: 70,
-        cons: 70,
-        total: 70,
-        note: 200
-    };
+    // Info o aute na začiatku CSV
+    const carInfo = [
+        `Vozidlo:;${car.name}`,
+        `EČV:;${car.licensePlate || 'Nezadané'}`,
+        '' // Prázdny riadok
+    ];
 
-    // Budovanie XML obsahu (SpreadsheetML)
-    let xml = `<?xml version="1.0"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:o="urn:schemas-microsoft-com:office:office"
- xmlns:x="urn:schemas-microsoft-com:office:excel"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:html="http://www.w3.org/TR/REC-html40">
- <Styles>
-  <Style ss:ID="Default" ss:Name="Normal">
-   <Alignment ss:Vertical="Bottom"/>
-   <Borders/>
-   <Font ss:FontName="Arial" x:CharSet="238" ss:Size="10"/>
-   <Interior/>
-   <NumberFormat/>
-   <Protection/>
-  </Style>
-  <Style ss:ID="Header">
-   <Font ss:FontName="Arial" x:CharSet="238" ss:Bold="1"/>
-   <Interior ss:Color="#E0E0E0" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="Info">
-   <Font ss:FontName="Arial" x:CharSet="238" ss:Bold="1" ss:Size="11"/>
-  </Style>
- </Styles>
- <Worksheet ss:Name="Kniha Jázd">
-  <Table>
-   <Column ss:Width="${colWidths.date}"/>
-   <Column ss:Width="${colWidths.time}"/>
-   <Column ss:Width="${colWidths.time}"/>
-   <Column ss:Width="${colWidths.dist}"/>
-   <Column ss:Width="${colWidths.odo}"/>
-   <Column ss:Width="${colWidths.odo}"/>
-   <Column ss:Width="${colWidths.gps}"/>
-   <Column ss:Width="${colWidths.gps}"/>
-   <Column ss:Width="${colWidths.price}"/>
-   <Column ss:Width="${colWidths.cons}"/>
-   <Column ss:Width="${colWidths.total}"/>
-   <Column ss:Width="${colWidths.note}"/>
+    // Hlavička CSV
+    const headers = [
+        'Dátum',
+        'Štart',
+        'Koniec',
+        'Vzdialenosť (km)',
+        'Tachometer Štart',
+        'Tachometer Koniec',
+        'GPS Štart',
+        'GPS Koniec',
+        'Cena paliva (€/L)',
+        'Spotreba (L/100km)',
+        'Cena celkom (€)',
+        'Poznámka'
+    ];
 
-   <Row ss:Height="20">
-    <Cell ss:StyleID="Info"><Data ss:Type="String">Vozidlo:</Data></Cell>
-    <Cell ss:StyleID="Info"><Data ss:Type="String">${car.name}</Data></Cell>
-   </Row>
-   <Row ss:Height="20">
-    <Cell ss:StyleID="Info"><Data ss:Type="String">EČV:</Data></Cell>
-    <Cell ss:StyleID="Info"><Data ss:Type="String">${car.licensePlate || 'Nezadané'}</Data></Cell>
-   </Row>
-   <Row /> <!-- Prázdny riadok -->
+    // Mapovanie dát na riadky
+    const rows = carTrips.map(trip => [
+        trip.date,
+        trip.startTime,
+        trip.endTime,
+        trip.distanceKm.toString().replace('.', ','),
+        trip.startOdometer.toString().replace('.', ','),
+        trip.endOdometer.toString().replace('.', ','),
+        `"${trip.startGps || ''}"`,
+        `"${trip.endGps || ''}"`,
+        trip.fuelPriceAtTime.toString().replace('.', ','),
+        trip.consumptionAtTime.toString().replace('.', ','),
+        trip.totalCost.toString().replace('.', ','),
+        `"${(trip.note || '').replace(/"/g, '""')}"`
+    ]);
 
-   <Row ss:StyleID="Header">
-    <Cell><Data ss:Type="String">Dátum</Data></Cell>
-    <Cell><Data ss:Type="String">Štart</Data></Cell>
-    <Cell><Data ss:Type="String">Koniec</Data></Cell>
-    <Cell><Data ss:Type="String">Vzdialenosť (km)</Data></Cell>
-    <Cell><Data ss:Type="String">Tachometer Štart</Data></Cell>
-    <Cell><Data ss:Type="String">Tachometer Koniec</Data></Cell>
-    <Cell><Data ss:Type="String">GPS Štart</Data></Cell>
-    <Cell><Data ss:Type="String">GPS Koniec</Data></Cell>
-    <Cell><Data ss:Type="String">Cena paliva (€/L)</Data></Cell>
-    <Cell><Data ss:Type="String">Spotreba (L/100km)</Data></Cell>
-    <Cell><Data ss:Type="String">Cena celkom (€)</Data></Cell>
-    <Cell><Data ss:Type="String">Poznámka</Data></Cell>
-   </Row>
-`;
+    // Spojenie do jedného reťazca
+    const csvContent = [
+        ...carInfo,
+        headers.join(';'),
+        ...rows.map(row => row.join(';'))
+    ].join('\n');
 
-    carTrips.forEach(trip => {
-        xml += `   <Row>
-    <Cell><Data ss:Type="String">${trip.date}</Data></Cell>
-    <Cell><Data ss:Type="String">${trip.startTime}</Data></Cell>
-    <Cell><Data ss:Type="String">${trip.endTime}</Data></Cell>
-    <Cell><Data ss:Type="Number">${trip.distanceKm}</Data></Cell>
-    <Cell><Data ss:Type="Number">${trip.startOdometer}</Data></Cell>
-    <Cell><Data ss:Type="Number">${trip.endOdometer}</Data></Cell>
-    <Cell><Data ss:Type="String">${trip.startGps || ''}</Data></Cell>
-    <Cell><Data ss:Type="String">${trip.endGps || ''}</Data></Cell>
-    <Cell><Data ss:Type="Number">${trip.fuelPriceAtTime}</Data></Cell>
-    <Cell><Data ss:Type="Number">${trip.consumptionAtTime}</Data></Cell>
-    <Cell><Data ss:Type="Number">${trip.totalCost}</Data></Cell>
-    <Cell><Data ss:Type="String">${(trip.note || '').replace(/[<>&'"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '\'': '&apos;', '"': '&quot;' }[c] || ''))}</Data></Cell>
-   </Row>\n`;
-    });
+    // Pridanie BOM
+    const BOM = '\uFEFF';
+    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
 
-    xml += `  </Table>
- </Worksheet>
-</Workbook>`;
-
-    const blob = new Blob([xml], { type: 'application/vnd.ms-excel' });
+    // Vytvorenie odkazu na stiahnutie
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     const now = new Date();
@@ -117,7 +67,7 @@ export const exportToCsv = (trips: Trip[], car: Car) => {
     const safePlate = (car.licensePlate || car.name).replace(/[^a-z0-9]/gi, '_');
 
     link.setAttribute('href', url);
-    link.setAttribute('download', `kniha_jazd_${safePlate}_${dateStr}.xls`);
+    link.setAttribute('download', `kniha_jazd_${safePlate}_${dateStr}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();

@@ -388,6 +388,7 @@ const App: React.FC = () => {
           {view === 'settings' && (
             <Settings
               settings={settings}
+              trips={trips}
               onSave={setSettings}
               requestNotificationPermission={requestNotificationPermission}
               onBack={() => setView('dashboard')}

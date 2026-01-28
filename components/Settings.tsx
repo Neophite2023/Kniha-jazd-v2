@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { AppSettings, Car, ServiceReminder } from '../types';
+import { Trip, AppSettings, Car, ServiceReminder } from '../types';
+import { exportToCsv } from '../services/exportService';
 
 interface SettingsProps {
   settings: AppSettings;
+  trips: Trip[];
   onSave: (settings: AppSettings) => void;
   requestNotificationPermission: () => Promise<void>;
   onBack?: () => void;
@@ -170,7 +172,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
   );
 };
 
-const Settings: React.FC<SettingsProps> = ({ settings, onSave, requestNotificationPermission, onBack }) => {
+const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNotificationPermission, onBack }) => {
   const [fuelPriceStr, setFuelPriceStr] = useState(settings.fuelPrice.toString());
   const [editingCarId, setEditingCarId] = useState<string | null>(null);
   const [localCars, setLocalCars] = useState<Car[]>(settings.cars || []);
@@ -391,6 +393,26 @@ const Settings: React.FC<SettingsProps> = ({ settings, onSave, requestNotificati
             >
               {isSaved ? 'Uložené' : 'Uložiť hlavné nastavenia'}
             </button>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Správa dát</h3>
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm">
+              <button
+                onClick={() => exportToCsv(trips)}
+                className="w-full p-4 flex items-center justify-between gap-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+              >
+                <div className="text-left">
+                  <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 block">Exportovať jazdy</span>
+                  <p className="text-[10px] text-zinc-500 dark:text-zinc-500 font-medium">Stiahnuť všetky záznamy ako súbor .CSV</p>
+                </div>
+                <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-900 dark:text-zinc-100 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </div>
+              </button>
+            </div>
           </div>
 
           <div className="mt-8 text-center">

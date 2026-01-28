@@ -76,7 +76,17 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                 type="text"
                 value={editedCar.licensePlate}
                 onChange={e => {
-                  const val = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+                  let val = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+
+                  // Automatické pridanie pomlčky po 2 znakoch (napr. SI -> SI-)
+                  // Ale iba ak užívateľ práve nemaza (Backspace na dĺžke 3)
+                  if (val.length === 2 && !val.includes('-')) {
+                    val = val + '-';
+                  } else if (val.length === 3 && val[2] !== '-' && !val.includes('-')) {
+                    // Ak užívateľ napísal 3. znak bez pomlčky, vložíme ju medzi
+                    val = val.substring(0, 2) + '-' + val.substring(2);
+                  }
+
                   setEditedCar({ ...editedCar, licensePlate: val });
                 }}
                 className="w-full text-base font-mono font-bold text-zinc-950 dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600"

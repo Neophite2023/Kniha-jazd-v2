@@ -76,7 +76,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                 type="text"
                 value={editedCar.licensePlate}
                 onChange={e => {
-                  const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                  const val = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
                   setEditedCar({ ...editedCar, licensePlate: val });
                 }}
                 className="w-full text-base font-mono font-bold text-zinc-950 dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600"

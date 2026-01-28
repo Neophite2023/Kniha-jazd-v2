@@ -56,7 +56,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Export Button */}
-        <div className="absolute top-[52px] right-5 z-10">
+        <div className="absolute top-[64px] right-5 z-10">
           <button
             onClick={() => exportToCsv(allTrips, activeCar)}
             className="flex items-center gap-1.5 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 dark:text-zinc-400 py-1.5 px-3 rounded-xl hover:text-green-600 dark:hover:text-green-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all border border-zinc-100 dark:border-zinc-800 active:scale-95"

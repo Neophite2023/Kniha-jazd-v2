@@ -49,7 +49,9 @@ export const exportToCsv = (trips: Trip[], car: Car) => {
     ]);
 
     // Spojenie do jedného reťazca
+    // Pridávame 'sep=;' aby Excel vedel, že oddeľovačom je bodkočiarka
     const csvContent = [
+        'sep=;',
         ...carInfo,
         headers.join(';'),
         ...rows.map(row => row.join(';'))

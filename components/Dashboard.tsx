@@ -1,7 +1,8 @@
-import React from 'react';
 import { Trip, HistoryStats, ActiveTrip, AppSettings, Car } from '../types';
+import { exportToCsv } from '../services/exportService';
 
 interface DashboardProps {
+  allTrips: Trip[];
   stats: HistoryStats;
   recentTrips: Trip[];
   activeTrip: ActiveTrip | null;
@@ -14,6 +15,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
+  allTrips,
   stats,
   recentTrips,
   activeTrip,
@@ -51,6 +53,20 @@ const Dashboard: React.FC<DashboardProps> = ({
               ))}
             </select>
           )}
+        </div>
+
+        {/* Export Button */}
+        <div className="absolute top-[52px] right-5 z-10">
+          <button
+            onClick={() => exportToCsv(allTrips, activeCar)}
+            className="flex items-center gap-1.5 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 dark:text-zinc-400 py-1.5 px-3 rounded-xl hover:text-green-600 dark:hover:text-green-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all border border-zinc-100 dark:border-zinc-800 active:scale-95"
+            title="Exportovať jazdy auta"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span className="text-[10px] font-bold uppercase tracking-tight">Export</span>
+          </button>
         </div>
 
         <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-1">

@@ -349,6 +349,7 @@ const App: React.FC = () => {
         <div className="view-transition">
           {view === 'dashboard' && (
             <Dashboard
+              allTrips={trips}
               stats={stats}
               recentTrips={trips.filter(t => t.carId === activeCar?.id).slice(0, 5)}
               activeTrip={activeTrip}

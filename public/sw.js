@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kniha-jazd-v1.3'; // Incremented version to force update
+const CACHE_NAME = 'kniha-jazd-v1.4'; // Incremented version to force update
 const REPO_NAME = '/Kniha-jazd-v2/'; // Repository name for GitHub Pages
 
 // Assets to cache immediately

@@ -75,9 +75,12 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
               <input
                 type="text"
                 value={editedCar.licensePlate}
-                onChange={e => setEditedCar({ ...editedCar, licensePlate: e.target.value.toUpperCase() })}
+                onChange={e => {
+                  const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                  setEditedCar({ ...editedCar, licensePlate: val });
+                }}
                 className="w-full text-base font-mono font-bold text-zinc-950 dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600"
-                placeholder="BA-123XY"
+                placeholder="BA123XY"
               />
             </div>
             <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">

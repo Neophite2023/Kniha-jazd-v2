@@ -297,7 +297,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
               <h3 className="text-[11px] font-semibold text-zinc-200 uppercase tracking-widest">Moje Autá</h3>
               <button
                 onClick={handleCreateCar}
-                className="text-xs font-bold text-[#313134] px-3 py-1 bg-[#4d4d50] rounded-full hover:bg-zinc-200 transition-colors"
+                className="px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-tight transition-all bg-zinc-100 text-[#313134] active:scale-95 shadow-lg shadow-zinc-900 hover:bg-zinc-200"
               >
                 + Pridať
               </button>

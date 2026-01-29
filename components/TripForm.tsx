@@ -157,18 +157,18 @@ const TripForm: React.FC<TripFormProps> = ({
       <form onSubmit={activeTrip ? handleEnd : handleStart} className="space-y-8">
         <div className="space-y-2">
           <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Údaje o jazde</h3>
-          <div className="bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-700/50 shadow-sm">
+          <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#333336]/50 shadow-sm">
             <div className="p-4 border-b border-zinc-100 dark:border-zinc-800 space-y-4">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Stav tachometra</label>
                 <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500">km</span>
               </div>
 
-              <div className="flex items-center justify-between gap-1 bg-zinc-50 dark:bg-zinc-800/50 p-1.5 rounded-2xl">
+              <div className="flex items-center justify-between gap-1 bg-zinc-50 dark:bg-[#242427]/50 p-1.5 rounded-2xl">
                 <button
                   type="button"
                   onClick={() => handleAdjustOdometer(-1)}
-                  className="w-11 h-11 flex items-center justify-center bg-white dark:bg-[#1c1c1c] rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-700/50 text-zinc-900 dark:text-white active:scale-90 transition-transform shrink-0"
+                  className="w-11 h-11 flex items-center justify-center bg-white dark:bg-[#242427] rounded-xl shadow-sm border border-zinc-200 dark:border-[#333336]/50 text-zinc-900 dark:text-white active:scale-90 transition-transform shrink-0"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
@@ -189,7 +189,7 @@ const TripForm: React.FC<TripFormProps> = ({
                 <button
                   type="button"
                   onClick={() => handleAdjustOdometer(1)}
-                  className="w-11 h-11 flex items-center justify-center bg-white dark:bg-[#1c1c1c] rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-700/50 text-zinc-900 dark:text-white active:scale-90 transition-transform shrink-0"
+                  className="w-11 h-11 flex items-center justify-center bg-white dark:bg-[#242427] rounded-xl shadow-sm border border-zinc-200 dark:border-[#333336]/50 text-zinc-900 dark:text-white active:scale-90 transition-transform shrink-0"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />

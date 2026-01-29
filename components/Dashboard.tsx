@@ -31,7 +31,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   if (!activeCar) {
     return (
       <div className="space-y-4 animate-in fade-in duration-500">
-        <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-800 shadow-sm text-center">
+        <div className="bg-white dark:bg-zinc-800/40 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-700/50 shadow-sm text-center">
           <p className="text-zinc-500 dark:text-zinc-400 text-sm font-medium">Pridajte svoje prvé auto v nastaveniach</p>
         </div>
       </div>
@@ -40,7 +40,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="space-y-4 animate-in fade-in duration-500">
-      <div className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm relative overflow-hidden">
+      <div className="bg-white dark:bg-zinc-800/40 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-700/50 shadow-sm relative overflow-hidden">
         {/* Car Selector */}
         <div className="absolute top-5 right-5 z-10">
           {settings.cars.length > 1 && (
@@ -84,7 +84,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {activeCar.serviceReminders && activeCar.serviceReminders.length > 0 && (
-        <div className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-5">
+        <div className="bg-white dark:bg-zinc-800/40 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-700/50 shadow-sm space-y-5">
           <h3 className="text-[11px] font-bold text-zinc-400 dark:text-zinc-400 uppercase tracking-widest px-1">Servisné Pripomienky</h3>
           <div className="space-y-6">
             {activeCar.serviceReminders.map(reminder => {
@@ -113,7 +113,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                       </div>
                     </div>
 
-                    <div className="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-zinc-100 dark:bg-zinc-800/50 rounded-full overflow-hidden">
                       <div
                         className={`h-full transition-all duration-1000 ${daysRemaining < 14 ? 'bg-red-500' : 'bg-zinc-900 dark:bg-white'}`}
                         style={{ width: daysRemaining <= 0 ? '100%' : daysRemaining < 14 ? '95%' : '10%' }}
@@ -144,7 +144,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </div>
 
-                  <div className="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-zinc-100 dark:bg-zinc-800/50 rounded-full overflow-hidden">
                     <div
                       className={`h-full transition-all duration-1000 ${remaining < 1000 ? 'bg-red-500' : 'bg-zinc-900 dark:bg-white'}`}
                       style={{ width: `${progress}%` }}
@@ -188,7 +188,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <button onClick={onViewAll} className="text-xs font-medium text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">Všetky</button>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm">
+        <div className="bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-700/50 shadow-sm">
           {recentTrips.length > 0 ? (
             recentTrips.map((trip, idx) => (
               <div
@@ -197,7 +197,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   e.preventDefault();
                   onTripClick(trip.id);
                 }}
-                className={`p-4 flex justify-between items-center active:bg-zinc-100 dark:active:bg-zinc-800/80 transition-all cursor-pointer select-none touch-manipulation ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-800' : ''}`}
+                className={`p-4 flex justify-between items-center active:bg-zinc-100 dark:active:bg-zinc-800/30 transition-all cursor-pointer select-none touch-manipulation ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-700/30' : ''}`}
                 role="button"
                 tabIndex={0}
               >

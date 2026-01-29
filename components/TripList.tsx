@@ -57,7 +57,7 @@ const TripList: React.FC<TripListProps> = ({ trips, onDelete, onBack, highlighte
             <div
               key={trip.id}
               ref={(el) => { tripRefs.current[trip.id] = el; }}
-              className={`bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border transition-all duration-700 ${highlightedTripId === trip.id ? 'border-zinc-900 dark:border-white ring-4 ring-zinc-900/10 dark:ring-white/10 scale-[1.02] shadow-xl z-10' : 'border-zinc-200 dark:border-zinc-800 shadow-sm'}`}
+              className={`bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border transition-all duration-700 ${highlightedTripId === trip.id ? 'border-zinc-900 dark:border-white ring-4 ring-zinc-900/10 dark:ring-white/10 scale-[1.02] shadow-xl z-10' : 'border-zinc-200 dark:border-zinc-700/50 shadow-sm'}`}
             >
               <div
                 className={`group relative p-4 flex justify-between items-center active:bg-zinc-50 dark:active:bg-zinc-800 transition-colors ${highlightedTripId === trip.id ? 'bg-zinc-50/50 dark:bg-zinc-800/50' : ''}`}

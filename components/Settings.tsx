@@ -59,7 +59,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
 
       <div className="space-y-4">
         <div className="space-y-4">
-          <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm p-4 space-y-4">
+          <div className="bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-700/50 shadow-sm p-4 space-y-4">
             <div>
               <label className="block text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase mb-1">Názov Auta</label>
               <input
@@ -126,7 +126,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                 </div>
               ) : (
                 editedCar.serviceReminders.map(reminder => (
-                  <div key={reminder.id} className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm p-4 space-y-3">
+                  <div key={reminder.id} className="bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-700/50 shadow-sm p-4 space-y-3">
                     <div className="flex items-center gap-2 mb-2">
                       <input
                         type="text"
@@ -279,7 +279,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
         <div className="space-y-4">
           <div className="space-y-2">
             <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Vzhľad aplikácie</h3>
-            <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm p-1 flex">
+            <div className="bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-700/50 shadow-sm p-1 flex">
               {(['light', 'dark', 'system'] as const).map((t) => (
                 <button
                   key={t}
@@ -297,7 +297,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
 
           <div className="space-y-2">
             <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Všeobecné nastavenia</h3>
-            <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-700/50 shadow-sm">
               <div className="p-4 flex items-center gap-4">
                 <label className="w-40 text-sm font-semibold text-zinc-900 dark:text-zinc-200">Cena paliva</label>
                 <input
@@ -329,7 +329,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
                 <div
                   key={car.id}
                   onClick={() => setEditingCarId(car.id)}
-                  className="bg-white dark:bg-zinc-900 rounded-3xl p-4 border border-zinc-200 dark:border-zinc-800 shadow-sm flex justify-between items-center active:bg-zinc-50 dark:active:bg-zinc-800 transition-colors cursor-pointer"
+                  className="bg-white dark:bg-zinc-800/40 rounded-3xl p-4 border border-zinc-200 dark:border-zinc-700/50 shadow-sm flex justify-between items-center active:bg-zinc-50 dark:active:bg-zinc-800/30 transition-colors cursor-pointer"
                 >
                   <div>
                     <div className="font-bold text-zinc-900 dark:text-zinc-200">{car.name}</div>
@@ -373,7 +373,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
 
           <div className="space-y-2">
             <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Systémové Hlásenia</h3>
-            <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="bg-white dark:bg-zinc-800/40 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-700/50 shadow-sm">
               <div className={`p-4 flex items-center justify-between gap-4 transition-colors ${notificationPermissionGranted ? 'bg-zinc-50 dark:bg-zinc-800' : ''}`}>
                 <div>
                   <label className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 block">Vyskakovacie notifikácie</label>

@@ -59,7 +59,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
 
       <div className="space-y-4">
         <div className="space-y-4">
-          <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#333336]/50 shadow-sm p-4 space-y-4">
+          <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm p-4 space-y-4">
             <div>
               <label className="block text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase mb-1">Názov Auta</label>
               <input
@@ -70,7 +70,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                 placeholder="Napr. Škoda Octavia"
               />
             </div>
-            <div className="pt-2 border-t border-zinc-100 dark:border-[#333336]/50">
+            <div className="pt-2 border-t border-zinc-100 dark:border-[#4d4d50]/50">
               <label className="block text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase mb-1">EČV (ŠPZ)</label>
               <input
                 type="text"
@@ -88,7 +88,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                 placeholder="BA123XY"
               />
             </div>
-            <div className="pt-2 border-t border-zinc-100 dark:border-[#333336]/50 flex items-center justify-between">
+            <div className="pt-2 border-t border-zinc-100 dark:border-[#4d4d50]/50 flex items-center justify-between">
               <label className="block text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase">Ø Spotreba (L/100km)</label>
               <input
                 type="text"
@@ -116,12 +116,12 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
 
             <div className="space-y-3">
               {editedCar.serviceReminders.length === 0 ? (
-                <div className="px-4 py-6 text-center bg-zinc-50 dark:bg-zinc-900 rounded-3xl border border-dashed border-zinc-300 dark:border-zinc-800">
+                <div className="px-4 py-6 text-center bg-zinc-50 dark:bg-[#38383b]/50 rounded-3xl border border-dashed border-zinc-300 dark:border-[#4d4d50]/30">
                   <p className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase">Žiadne pripomienky</p>
                 </div>
               ) : (
                 editedCar.serviceReminders.map(reminder => (
-                  <div key={reminder.id} className="bg-white dark:bg-[#2a2a2d] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#333336]/50 shadow-sm p-4 space-y-3">
+                  <div key={reminder.id} className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm p-4 space-y-3">
                     <div className="flex items-center gap-2 mb-2">
                       <input
                         type="text"
@@ -137,9 +137,9 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                       </button>
                     </div>
 
-                    <div className="flex bg-zinc-50 dark:bg-[#242427] p-1 rounded-lg mb-2">
-                      <button onClick={() => updateReminder(reminder.id, 'type', 'distance')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'distance' ? 'bg-white dark:bg-[#333336] shadow text-zinc-950 dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>KM</button>
-                      <button onClick={() => updateReminder(reminder.id, 'type', 'date')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'date' ? 'bg-white dark:bg-[#333336] shadow text-zinc-950 dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>DÁTUM</button>
+                    <div className="flex bg-zinc-50 dark:bg-[#38383b] p-1 rounded-lg mb-2">
+                      <button onClick={() => updateReminder(reminder.id, 'type', 'distance')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'distance' ? 'bg-white dark:bg-[#4d4d50] shadow text-zinc-950 dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>KM</button>
+                      <button onClick={() => updateReminder(reminder.id, 'type', 'date')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'date' ? 'bg-white dark:bg-[#4d4d50] shadow text-zinc-950 dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>DÁTUM</button>
                     </div>
 
                     {reminder.type === 'distance' ? (
@@ -274,14 +274,14 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
         <div className="space-y-4">
           <div className="space-y-2">
             <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Vzhľad aplikácie</h3>
-            <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#333336]/50 shadow-sm p-1 flex">
+            <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm p-1 flex">
               {(['light', 'dark', 'system'] as const).map((t) => (
                 <button
                   key={t}
                   onClick={() => onSave({ ...settings, theme: t })}
                   className={`flex-1 py-3 text-[10px] font-bold uppercase tracking-wider rounded-2xl transition-all ${settings.theme === t
-                    ? 'bg-zinc-950 dark:bg-[#333336] text-white dark:text-white shadow-md'
-                    : 'text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:hover:bg-[#242427]'
+                    ? 'bg-zinc-950 dark:bg-[#4d4d50] text-white dark:text-white shadow-md'
+                    : 'text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:hover:bg-[#38383b]'
                     }`}
                 >
                   {t === 'light' ? 'Svetlý' : t === 'dark' ? 'Tmavý' : 'Auto'}
@@ -292,7 +292,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
 
           <div className="space-y-2">
             <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Všeobecné nastavenia</h3>
-            <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#333336]/50 shadow-sm">
+            <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm">
               <div className="p-4 flex items-center gap-4">
                 <label className="w-40 text-sm font-semibold text-zinc-900 dark:text-zinc-200">Cena paliva</label>
                 <input
@@ -314,7 +314,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
               <h3 className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Moje Autá</h3>
               <button
                 onClick={handleCreateCar}
-                className="text-xs font-bold text-zinc-950 dark:text-zinc-950 px-3 py-1 bg-zinc-100 dark:bg-zinc-100 rounded-full hover:bg-zinc-200 transition-colors"
+                className="text-xs font-bold text-zinc-950 dark:text-zinc-950 px-3 py-1 bg-zinc-100 dark:bg-[#4d4d50] rounded-full hover:bg-zinc-200 transition-colors"
               >
                 + Pridať
               </button>
@@ -324,7 +324,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
                 <div
                   key={car.id}
                   onClick={() => setEditingCarId(car.id)}
-                  className="bg-white dark:bg-[#2a2a2d] rounded-3xl p-4 border border-zinc-200 dark:border-[#333336]/50 shadow-sm flex justify-between items-center active:bg-zinc-50 dark:active:bg-[#242427]/30 transition-colors cursor-pointer"
+                  className="bg-white dark:bg-[#3f3f42] rounded-3xl p-4 border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm flex justify-between items-center active:bg-zinc-50 dark:active:bg-[#38383b]/30 transition-colors cursor-pointer"
                 >
                   <div>
                     <div className="font-bold text-zinc-900 dark:text-zinc-200">{car.name}</div>
@@ -368,8 +368,8 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
 
           <div className="space-y-2">
             <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Systémové Hlásenia</h3>
-            <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#333336]/50 shadow-sm">
-              <div className={`p-4 flex items-center justify-between gap-4 transition-colors ${notificationPermissionGranted ? 'bg-zinc-50 dark:bg-[#242427]/50' : ''}`}>
+            <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm">
+              <div className={`p-4 flex items-center justify-between gap-4 transition-colors ${notificationPermissionGranted ? 'bg-zinc-50 dark:bg-[#38383b]/50' : ''}`}>
                 <div>
                   <label className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 block">Vyskakovacie notifikácie</label>
                   <p className="text-[10px] text-zinc-500 dark:text-zinc-500 font-medium">Upozornenie pri dosiahnutí limitu</p>
@@ -404,7 +404,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
             <button
               onClick={handleSaveMain}
               disabled={isSaved}
-              className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98] shadow-lg ${isSaved ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500' : 'bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-zinc-200 dark:shadow-zinc-900/20'}`}
+              className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98] shadow-lg ${isSaved ? 'bg-zinc-200 dark:bg-[#38383b] text-zinc-500' : 'bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-zinc-200 dark:shadow-zinc-900/20'}`}
             >
               {isSaved ? 'Uložené' : 'Uložiť hlavné nastavenia'}
             </button>

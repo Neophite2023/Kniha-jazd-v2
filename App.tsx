@@ -176,7 +176,7 @@ const App: React.FC = () => {
       if (isDark) {
         document.documentElement.classList.add('dark');
         // Update meta theme-color for mobile browsers
-        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#1e1e20');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#313134');
       } else {
         document.documentElement.classList.remove('dark');
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#ffffff');
@@ -338,8 +338,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#1e1e20] flex flex-col text-zinc-900 dark:text-zinc-200 selection:bg-zinc-200 dark:selection:bg-zinc-500/30 antialiased overflow-x-hidden relative transition-colors duration-300">
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#1e1e20]/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 flex justify-center items-center">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#313134] flex flex-col text-zinc-900 dark:text-zinc-200 selection:bg-zinc-200 dark:selection:bg-zinc-500/30 antialiased overflow-x-hidden relative transition-colors duration-300">
+      <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#313134]/80 backdrop-blur-xl border-b border-zinc-200 dark:border-[#4d4d50]/50 px-6 py-4 flex justify-center items-center">
         <h1 className="text-lg font-semibold tracking-tight">Kniha Jázd</h1>
       </header>
 
@@ -409,7 +409,7 @@ const App: React.FC = () => {
           )}
           {view === 'info' && (
             <div className="space-y-6 animate-in fade-in duration-500">
-              <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl p-6 border border-zinc-200 dark:border-[#333336]/50 shadow-sm space-y-6">
+              <div className="bg-white dark:bg-[#3f3f42] rounded-3xl p-6 border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm space-y-6">
                 <div>
                   <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-2">Prehľad funkcií</h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -505,7 +505,7 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#1e1e20]/80 backdrop-blur-3xl border-t border-zinc-200 dark:border-zinc-800 pb-[env(safe-area-inset-bottom)]">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#313134]/80 backdrop-blur-3xl border-t border-zinc-200 dark:border-[#4d4d50]/50 pb-[env(safe-area-inset-bottom)]">
         <div className="max-w-lg mx-auto flex justify-between items-center h-16 px-6">
           <button
             onClick={() => setView('dashboard')}

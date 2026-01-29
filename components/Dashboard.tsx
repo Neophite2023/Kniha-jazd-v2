@@ -31,7 +31,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   if (!activeCar) {
     return (
       <div className="space-y-4 animate-in fade-in duration-500">
-        <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl p-8 border border-zinc-200 dark:border-[#333336]/50 shadow-sm text-center">
+        <div className="bg-white dark:bg-[#3f3f42] rounded-3xl p-8 border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm text-center">
           <p className="text-zinc-500 dark:text-zinc-400 text-sm font-medium">Pridajte svoje prvé auto v nastaveniach</p>
         </div>
       </div>
@@ -40,14 +40,14 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="space-y-4 animate-in fade-in duration-500">
-      <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl p-5 border border-zinc-200 dark:border-[#333336]/50 shadow-sm relative overflow-hidden">
+      <div className="bg-white dark:bg-[#3f3f42] rounded-3xl p-5 border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm relative overflow-hidden">
         {/* Car Selector */}
         <div className="absolute top-5 right-5 z-10">
           {settings.cars.length > 1 && (
             <select
               value={activeCar.id}
               onChange={(e) => onActiveCarChange(e.target.value)}
-              className="bg-zinc-100 dark:bg-[#242427] text-zinc-900 dark:text-zinc-100 text-[10px] font-bold uppercase tracking-wide py-1.5 px-3 rounded-full outline-none border-none cursor-pointer hover:bg-zinc-200 dark:hover:bg-[#333336] transition-colors appearance-none"
+              className="bg-zinc-100 dark:bg-[#38383b] text-zinc-900 dark:text-zinc-100 text-[10px] font-bold uppercase tracking-wide py-1.5 px-3 rounded-full outline-none border-none cursor-pointer hover:bg-zinc-200 dark:hover:bg-[#4d4d50] transition-colors appearance-none"
               style={{ WebkitAppearance: 'none' }}
             >
               {settings.cars.map(c => (
@@ -61,7 +61,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="absolute top-[64px] right-5 z-10">
           <button
             onClick={() => exportToCsv(allTrips, activeCar)}
-            className="flex items-center gap-1.5 bg-zinc-50 dark:bg-[#242427]/50 text-zinc-500 dark:text-zinc-400 py-1.5 px-3 rounded-xl hover:text-green-600 dark:hover:text-green-400 hover:bg-zinc-100 dark:hover:bg-[#242427] transition-all border border-zinc-100 dark:border-[#333336]/50 active:scale-95"
+            className="flex items-center gap-1.5 bg-zinc-50 dark:bg-[#38383b]/50 text-zinc-500 dark:text-zinc-400 py-1.5 px-3 rounded-xl hover:text-green-600 dark:hover:text-green-400 hover:bg-zinc-100 dark:hover:bg-[#38383b] transition-all border border-zinc-100 dark:border-[#4d4d50]/50 active:scale-95"
             title="Exportovať jazdy auta"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,7 +84,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {activeCar.serviceReminders && activeCar.serviceReminders.length > 0 && (
-        <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl p-5 border border-zinc-200 dark:border-[#333336]/50 shadow-sm space-y-5">
+        <div className="bg-white dark:bg-[#3f3f42] rounded-3xl p-5 border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm space-y-5">
           <h3 className="text-[11px] font-bold text-zinc-400 dark:text-zinc-400 uppercase tracking-widest px-1">Servisné Pripomienky</h3>
           <div className="space-y-6">
             {activeCar.serviceReminders.map(reminder => {
@@ -113,7 +113,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                       </div>
                     </div>
 
-                    <div className="h-1.5 bg-zinc-100 dark:bg-[#242427] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-zinc-100 dark:bg-[#38383b] rounded-full overflow-hidden">
                       <div
                         className={`h-full transition-all duration-1000 ${daysRemaining < 14 ? 'bg-red-500' : 'bg-zinc-900 dark:bg-white'}`}
                         style={{ width: daysRemaining <= 0 ? '100%' : daysRemaining < 14 ? '95%' : '10%' }}
@@ -158,7 +158,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       )}
 
       {activeTrip && (
-        <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl p-4 flex items-center justify-between shadow-xl ring-1 ring-zinc-200 dark:ring-white/10">
+        <div className="bg-white dark:bg-[#3f3f42] rounded-3xl p-4 flex items-center justify-between shadow-xl ring-1 ring-zinc-200 dark:ring-white/10">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 rounded-2xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -188,7 +188,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <button onClick={onViewAll} className="text-xs font-medium text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">Všetky</button>
         </div>
 
-        <div className="bg-white dark:bg-[#2a2a2d] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#333336]/50 shadow-sm">
+        <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm">
           {recentTrips.length > 0 ? (
             recentTrips.map((trip, idx) => (
               <div
@@ -197,12 +197,12 @@ const Dashboard: React.FC<DashboardProps> = ({
                   e.preventDefault();
                   onTripClick(trip.id);
                 }}
-                className={`p-4 flex justify-between items-center active:bg-zinc-100 dark:active:bg-[#242427] transition-all cursor-pointer select-none touch-manipulation ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-100 dark:border-[#333336]/30' : ''}`}
+                className={`p-4 flex justify-between items-center active:bg-zinc-100 dark:active:bg-[#38383b] transition-all cursor-pointer select-none touch-manipulation ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-100 dark:border-[#4d4d50]/30' : ''}`}
                 role="button"
                 tabIndex={0}
               >
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-zinc-100 dark:bg-[#242427] rounded-xl flex items-center justify-center text-zinc-400 dark:text-zinc-400">
+                  <div className="w-10 h-10 bg-zinc-100 dark:bg-[#38383b] rounded-xl flex items-center justify-center text-zinc-400 dark:text-zinc-400">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>

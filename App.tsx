@@ -155,6 +155,7 @@ const App: React.FC = () => {
   }, [settings.cars, settings.lastActiveCarId]);
 
   const [view, setView] = useState<'dashboard' | 'add' | 'history' | 'settings' | 'info'>('dashboard');
+  const [highlightedTripId, setHighlightedTripId] = useState<string | null>(null);
 
   const [notifiedReminders, setNotifiedReminders] = useState<string[]>(() => {
     const stored = safeStorage.getItem('kniha_jazd_notifications_v1');
@@ -331,6 +332,11 @@ const App: React.FC = () => {
     setTrips(current => current.filter(t => t.id !== id));
   };
 
+  const handleTripClick = (id: string) => {
+    setHighlightedTripId(id);
+    setView('history');
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col text-zinc-900 dark:text-zinc-200 selection:bg-zinc-200 dark:selection:bg-zinc-500/30 antialiased overflow-x-hidden relative transition-colors duration-300">
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 flex justify-center items-center">
@@ -361,8 +367,12 @@ const App: React.FC = () => {
                   ? (trips.filter(t => t.carId === activeCar.id)[0]?.endOdometer || 0)
                   : 0
               }
-              onViewAll={() => setView('history')}
+              onViewAll={() => {
+                setHighlightedTripId(null);
+                setView('history');
+              }}
               onAddTrip={() => setView('add')}
+              onTripClick={handleTripClick}
             />
           )}
           {view === 'add' && activeCar && (
@@ -384,6 +394,8 @@ const App: React.FC = () => {
               trips={activeCar ? trips.filter(t => t.carId === activeCar.id) : []}
               onDelete={handleDeleteTrip}
               onBack={() => setView('dashboard')}
+              highlightedTripId={highlightedTripId || undefined}
+              onHighlightComplete={() => setHighlightedTripId(null)}
             />
           )}
           {view === 'settings' && (
@@ -506,7 +518,10 @@ const App: React.FC = () => {
           </button>
 
           <button
-            onClick={() => setView('history')}
+            onClick={() => {
+              setHighlightedTripId(null);
+              setView('history');
+            }}
             className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'history' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'history' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">

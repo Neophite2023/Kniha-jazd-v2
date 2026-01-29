@@ -12,6 +12,7 @@ interface DashboardProps {
   lastOdometer: number;
   onViewAll: () => void;
   onAddTrip: () => void;
+  onTripClick: (id: string) => void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
@@ -24,7 +25,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   onActiveCarChange,
   lastOdometer,
   onViewAll,
-  onAddTrip
+  onAddTrip,
+  onTripClick
 }) => {
   if (!activeCar) {
     return (
@@ -189,7 +191,16 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm">
           {recentTrips.length > 0 ? (
             recentTrips.map((trip, idx) => (
-              <div key={trip.id} className={`p-4 flex justify-between items-center active:bg-zinc-50 dark:active:bg-zinc-800 transition-colors ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-800' : ''}`}>
+              <div
+                key={trip.id}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onTripClick(trip.id);
+                }}
+                className={`p-4 flex justify-between items-center active:bg-zinc-100 dark:active:bg-zinc-800/80 transition-all cursor-pointer select-none touch-manipulation ${idx !== recentTrips.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-800' : ''}`}
+                role="button"
+                tabIndex={0}
+              >
                 <div className="flex gap-4">
                   <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-400 dark:text-zinc-400">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

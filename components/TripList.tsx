@@ -5,10 +5,38 @@ interface TripListProps {
   trips: Trip[];
   onDelete: (id: string) => void;
   onBack: () => void;
+  highlightedTripId?: string;
+  onHighlightComplete?: () => void;
 }
 
-const TripList: React.FC<TripListProps> = ({ trips, onDelete, onBack }) => {
+const TripList: React.FC<TripListProps> = ({ trips, onDelete, onBack, highlightedTripId, onHighlightComplete }) => {
   const [confirmingId, setConfirmingId] = useState<string | null>(null);
+  const tripRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  React.useEffect(() => {
+    if (highlightedTripId && tripRefs.current[highlightedTripId]) {
+      // Small delay to ensure layout has settled, especially important for iOS/Safari
+      const scrollTimer = setTimeout(() => {
+        const element = tripRefs.current[highlightedTripId!];
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 600); // Slightly longer delay for stability
+
+      // Delay clearing the highlight to allow the animation to play
+      const clearTimer = setTimeout(() => {
+        onHighlightComplete?.();
+      }, 3600);
+
+      return () => {
+        clearTimeout(scrollTimer);
+        clearTimeout(clearTimer);
+      };
+    }
+  }, [highlightedTripId, onHighlightComplete]);
 
   const handleDeleteClick = (id: string) => setConfirmingId(id);
   const cancelDelete = () => setConfirmingId(null);
@@ -26,9 +54,13 @@ const TripList: React.FC<TripListProps> = ({ trips, onDelete, onBack }) => {
       ) : (
         <div className="space-y-3">
           {trips.map((trip) => (
-            <div key={trip.id} className="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div
+              key={trip.id}
+              ref={(el) => { tripRefs.current[trip.id] = el; }}
+              className={`bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border transition-all duration-700 ${highlightedTripId === trip.id ? 'border-zinc-900 dark:border-white ring-4 ring-zinc-900/10 dark:ring-white/10 scale-[1.02] shadow-xl z-10' : 'border-zinc-200 dark:border-zinc-800 shadow-sm'}`}
+            >
               <div
-                className="group relative p-4 flex justify-between items-center active:bg-zinc-50 dark:active:bg-zinc-800 transition-colors"
+                className={`group relative p-4 flex justify-between items-center active:bg-zinc-50 dark:active:bg-zinc-800 transition-colors ${highlightedTripId === trip.id ? 'bg-zinc-50/50 dark:bg-zinc-800/50' : ''}`}
               >
                 {confirmingId === trip.id && (
                   <div className="absolute inset-0 bg-white/95 dark:bg-zinc-900/95 z-30 flex items-center justify-between px-6 animate-in slide-in-from-right duration-200">

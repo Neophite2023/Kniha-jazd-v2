@@ -62,8 +62,7 @@ const App: React.FC = () => {
     const defaults: AppSettings = {
       fuelPrice: 1.65,
       cars: [],
-      lastActiveCarId: '',
-      theme: 'system'
+      lastActiveCarId: ''
     };
 
     if (!stored) {
@@ -117,8 +116,7 @@ const App: React.FC = () => {
         return {
           fuelPrice: parsed.fuelPrice || 1.65,
           cars: [migratedCar],
-          lastActiveCarId: migratedCar.id,
-          theme: parsed.theme || 'system'
+          lastActiveCarId: migratedCar.id
         };
       }
 
@@ -166,35 +164,6 @@ const App: React.FC = () => {
     safeStorage.setItem('kniha_jazd_notifications_v1', JSON.stringify(notifiedReminders));
   }, [notifiedReminders]);
 
-  // Theme handling effect
-  useEffect(() => {
-    const applyTheme = () => {
-      const isDark =
-        settings.theme === 'dark' ||
-        (settings.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-        // Update meta theme-color for mobile browsers
-        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#313134');
-      } else {
-        document.documentElement.classList.remove('dark');
-        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#ffffff');
-      }
-    };
-
-    applyTheme();
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      if (settings.theme === 'system') {
-        applyTheme();
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [settings.theme]);
 
   const requestNotificationPermission = async () => {
     if (typeof Notification === 'undefined') return;
@@ -547,7 +516,7 @@ const App: React.FC = () => {
               setHighlightedTripId(null);
               setView('history');
             }}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'history' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'history' ? 'text-zinc-50' : 'text-zinc-300'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'history' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -557,9 +526,9 @@ const App: React.FC = () => {
 
           <button
             onClick={() => view === 'add' ? setView('dashboard') : setView('add')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'add' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'add' ? 'text-zinc-50' : 'text-zinc-300'}`}
           >
-            <div className={`p-1.5 rounded-full shadow-lg transition-transform active:scale-95 ${activeTrip ? 'bg-red-500 text-white animate-pulse' : view === 'add' ? 'bg-[#313134] dark:bg-zinc-50 text-white dark:text-[#313134]' : 'bg-white dark:bg-zinc-900 text-[#313134] dark:text-zinc-50 border border-zinc-200 dark:border-zinc-700'}`}>
+            <div className={`p-1.5 rounded-full shadow-lg transition-transform active:scale-95 ${activeTrip ? 'bg-red-500 text-white animate-pulse' : view === 'add' ? 'bg-zinc-50 text-[#313134]' : 'bg-zinc-900 text-zinc-50 border border-zinc-700'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={activeTrip ? "M6 18L18 6M6 6l12 12" : "M12 4v16m8-8H4"} />
               </svg>
@@ -568,7 +537,7 @@ const App: React.FC = () => {
 
           <button
             onClick={() => setView('info')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'info' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'info' ? 'text-zinc-50' : 'text-zinc-300'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'info' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -578,7 +547,7 @@ const App: React.FC = () => {
 
           <button
             onClick={() => setView('settings')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'settings' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'settings' ? 'text-zinc-50' : 'text-zinc-300'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'settings' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
@@ -587,7 +556,7 @@ const App: React.FC = () => {
           </button>
         </div>
       </nav>
-    </div>
+    </div >
   );
 };
 

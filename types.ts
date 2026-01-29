@@ -44,13 +44,10 @@ export interface ServiceReminder {
   targetDate?: string;
 }
 
-export type ThemeMode = 'light' | 'dark' | 'system';
-
 export interface AppSettings {
   fuelPrice: number; // EUR/L
   cars: Car[];
   lastActiveCarId: string;
-  theme: ThemeMode;
 }
 
 export interface HistoryStats {

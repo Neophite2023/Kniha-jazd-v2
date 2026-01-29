@@ -57,29 +57,29 @@ const TripList: React.FC<TripListProps> = ({ trips, onDelete, onBack, highlighte
             <div
               key={trip.id}
               ref={(el) => { tripRefs.current[trip.id] = el; }}
-              className={`bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border transition-all duration-700 ${highlightedTripId === trip.id ? 'border-zinc-900 dark:border-white ring-4 ring-zinc-900/10 dark:ring-white/10 scale-[1.02] shadow-xl z-10' : 'border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm'}`}
+              className={`bg-[#3f3f42] rounded-3xl overflow-hidden border transition-all duration-700 ${highlightedTripId === trip.id ? 'border-white ring-4 ring-white/10 scale-[1.02] shadow-xl z-10' : 'border-[#4d4d50]/50 shadow-sm'}`}
             >
               <div
-                className={`group relative p-4 flex justify-between items-center active:bg-zinc-50 dark:active:bg-[#38383b] transition-colors ${highlightedTripId === trip.id ? 'bg-zinc-50/50 dark:bg-[#38383b]/50' : ''}`}
+                className={`group relative p-4 flex justify-between items-center active:bg-[#38383b] transition-colors ${highlightedTripId === trip.id ? 'bg-[#38383b]/50' : ''}`}
               >
                 {confirmingId === trip.id && (
-                  <div className="absolute inset-0 bg-white/95 dark:bg-zinc-900/95 z-30 flex items-center justify-between px-6 animate-in slide-in-from-right duration-200">
-                    <span className="text-sm font-bold text-zinc-900 dark:text-white">Odstrániť?</span>
+                  <div className="absolute inset-0 bg-[#3f3f42] z-30 flex items-center justify-between px-6 animate-in slide-in-from-right duration-200">
+                    <span className="text-sm font-bold text-zinc-100">Odstrániť?</span>
                     <div className="flex gap-2">
-                      <button onClick={cancelDelete} className="px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">Zrušiť</button>
+                      <button onClick={cancelDelete} className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-100">Zrušiť</button>
                       <button onClick={() => confirmDelete(trip.id)} className="px-4 py-2 bg-red-500 text-white rounded-full text-sm font-bold shadow-md">Vymazať</button>
                     </div>
                   </div>
                 )}
 
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-zinc-100 dark:bg-[#38383b] rounded-xl flex items-center justify-center text-zinc-400 dark:text-zinc-400">
+                  <div className="w-10 h-10 bg-[#38383b] rounded-xl flex items-center justify-center text-zinc-400">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </div>
                   <div>
-                    <div className="font-bold text-zinc-900 dark:text-zinc-200 text-base tracking-tight">{trip.distanceKm.toFixed(1)} km</div>
+                    <div className="font-bold text-[#313134] dark:text-zinc-200 text-base tracking-tight">{trip.distanceKm.toFixed(1)} km</div>
                     <div className="text-[10px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
                       {new Date(trip.date).toLocaleDateString('sk-SK', { day: '2-digit', month: 'short', year: 'numeric' })} • {trip.startTime} – {trip.endTime}
                     </div>
@@ -93,7 +93,7 @@ const TripList: React.FC<TripListProps> = ({ trips, onDelete, onBack, highlighte
 
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <div className="font-bold text-zinc-900 dark:text-zinc-200 text-sm tabular-nums">{trip.totalCost.toFixed(2)} €</div>
+                    <div className="font-bold text-[#313134] dark:text-zinc-200 text-sm tabular-nums">{trip.totalCost.toFixed(2)} €</div>
                     <div className="text-[10px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tabular-nums">{trip.endOdometer} km</div>
                   </div>
                   <button

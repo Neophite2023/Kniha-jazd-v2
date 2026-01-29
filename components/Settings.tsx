@@ -49,12 +49,12 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
   return (
     <div className="animate-in slide-in-from-right duration-300 space-y-6 pb-20">
       <div className="flex items-center gap-4 mb-2">
-        <button onClick={onBack} className="p-2 -ml-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+        <button onClick={onBack} className="p-2 -ml-2 text-zinc-400 dark:text-zinc-500 hover:text-[#313134] dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Upraviť auto</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-[#313134] dark:text-white">Upraviť auto</h2>
       </div>
 
       <div className="space-y-4">
@@ -66,7 +66,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                 type="text"
                 value={editedCar.name}
                 onChange={e => setEditedCar({ ...editedCar, name: e.target.value })}
-                className="w-full text-lg font-bold text-zinc-950 dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600"
+                className="w-full text-lg font-bold text-[#313134] dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600"
                 placeholder="Napr. Škoda Octavia"
               />
             </div>
@@ -84,7 +84,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                   }
                   setEditedCar({ ...editedCar, licensePlate: val });
                 }}
-                className="w-full text-base font-mono font-bold text-zinc-950 dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600"
+                className="w-full text-base font-mono font-bold text-[#313134] dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600"
                 placeholder="BA123XY"
               />
             </div>
@@ -95,7 +95,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                 inputMode="decimal"
                 value={consumptionStr}
                 onChange={e => setConsumptionStr(e.target.value)}
-                className="w-24 text-right text-base font-medium text-zinc-950 dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600 tabular-nums"
+                className="w-24 text-right text-base font-medium text-[#313134] dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600 tabular-nums"
                 placeholder="6.5"
               />
             </div>
@@ -108,7 +108,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
               <button
                 type="button"
                 onClick={addReminder}
-                className="text-xs font-bold text-zinc-950 dark:text-zinc-950 px-3 py-1 bg-zinc-100 dark:bg-zinc-100 rounded-full hover:bg-zinc-200 transition-colors"
+                className="text-xs font-bold text-[#313134] dark:text-zinc-950 px-3 py-1 bg-zinc-100 dark:bg-zinc-100 rounded-full hover:bg-zinc-200 transition-colors"
               >
                 + Pridať
               </button>
@@ -127,7 +127,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                         type="text"
                         value={reminder.name}
                         onChange={e => updateReminder(reminder.id, 'name', e.target.value)}
-                        className="flex-grow font-bold text-zinc-950 dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600 text-sm"
+                        className="flex-grow font-bold text-[#313134] dark:text-white bg-transparent outline-none placeholder-zinc-300 dark:placeholder-zinc-600 text-sm"
                         placeholder="Názov servisu"
                       />
                       <button onClick={() => deleteReminder(reminder.id)} className="text-zinc-600 hover:text-red-500">
@@ -138,8 +138,8 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                     </div>
 
                     <div className="flex bg-zinc-50 dark:bg-[#38383b] p-1 rounded-lg mb-2">
-                      <button onClick={() => updateReminder(reminder.id, 'type', 'distance')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'distance' ? 'bg-white dark:bg-[#4d4d50] shadow text-zinc-950 dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>KM</button>
-                      <button onClick={() => updateReminder(reminder.id, 'type', 'date')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'date' ? 'bg-white dark:bg-[#4d4d50] shadow text-zinc-950 dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>DÁTUM</button>
+                      <button onClick={() => updateReminder(reminder.id, 'type', 'distance')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'distance' ? 'bg-white dark:bg-[#4d4d50] shadow text-[#313134] dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>KM</button>
+                      <button onClick={() => updateReminder(reminder.id, 'type', 'date')} className={`flex-1 py-1 text-[10px] font-bold rounded-md transition-all ${reminder.type === 'date' ? 'bg-white dark:bg-[#4d4d50] shadow text-[#313134] dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>DÁTUM</button>
                     </div>
 
                     {reminder.type === 'distance' ? (
@@ -147,14 +147,14 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                         <div>
                           <label className="block text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase mb-0.5">Interval</label>
                           <div className="flex items-baseline gap-1">
-                            <input type="number" value={reminder.interval || ''} onChange={e => updateReminder(reminder.id, 'interval', parseInt(e.target.value) || 0)} className="w-full bg-transparent font-medium text-sm text-zinc-950 dark:text-white outline-none tabular-nums" placeholder="15000" />
+                            <input type="number" value={reminder.interval || ''} onChange={e => updateReminder(reminder.id, 'interval', parseInt(e.target.value) || 0)} className="w-full bg-transparent font-medium text-sm text-[#313134] dark:text-white outline-none tabular-nums" placeholder="15000" />
                             <span className="text-[9px] text-zinc-400 dark:text-zinc-500">km</span>
                           </div>
                         </div>
                         <div>
                           <label className="block text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase mb-0.5">Naposledy</label>
                           <div className="flex items-baseline gap-1">
-                            <input type="number" value={reminder.lastServiceOdometer || ''} onChange={e => updateReminder(reminder.id, 'lastServiceOdometer', parseInt(e.target.value) || 0)} className="w-full bg-transparent font-medium text-sm text-zinc-950 dark:text-white outline-none tabular-nums" placeholder="0" />
+                            <input type="number" value={reminder.lastServiceOdometer || ''} onChange={e => updateReminder(reminder.id, 'lastServiceOdometer', parseInt(e.target.value) || 0)} className="w-full bg-transparent font-medium text-sm text-[#313134] dark:text-white outline-none tabular-nums" placeholder="0" />
                             <span className="text-[9px] text-zinc-400 dark:text-zinc-500">km</span>
                           </div>
                         </div>
@@ -162,7 +162,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
                     ) : (
                       <div>
                         <label className="block text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase mb-0.5">Dátum</label>
-                        <input type="date" value={reminder.targetDate || ''} onChange={e => updateReminder(reminder.id, 'targetDate', e.target.value)} className="w-full bg-transparent font-medium text-sm text-zinc-950 dark:text-white outline-none" />
+                        <input type="date" value={reminder.targetDate || ''} onChange={e => updateReminder(reminder.id, 'targetDate', e.target.value)} className="w-full bg-transparent font-medium text-sm text-[#313134] dark:text-white outline-none" />
                       </div>
                     )}
                   </div>
@@ -171,7 +171,7 @@ const CarEditor: React.FC<{ car: Car; onSave: (car: Car) => void; onBack: () => 
             </div>
           </div>
 
-          <button onClick={handleSave} className="w-full py-3 bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 rounded-2xl font-bold text-sm shadow-lg shadow-zinc-200 dark:shadow-zinc-900/20 active:scale-[0.98] transition-all">
+          <button onClick={handleSave} className="w-full py-3 bg-[#313134] dark:bg-zinc-100 text-white dark:text-[#313134] rounded-2xl font-bold text-sm shadow-lg shadow-zinc-200 dark:shadow-zinc-900/20 active:scale-[0.98] transition-all">
             Uložiť zmeny auta
           </button>
         </div>
@@ -280,7 +280,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
                   key={t}
                   onClick={() => onSave({ ...settings, theme: t })}
                   className={`flex-1 py-3 text-[10px] font-bold uppercase tracking-wider rounded-2xl transition-all ${settings.theme === t
-                    ? 'bg-zinc-950 dark:bg-[#4d4d50] text-white dark:text-white shadow-md'
+                    ? 'bg-[#313134] dark:bg-[#4d4d50] text-white dark:text-white shadow-md'
                     : 'text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:hover:bg-[#38383b]'
                     }`}
                 >
@@ -294,14 +294,14 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
             <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Všeobecné nastavenia</h3>
             <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm">
               <div className="p-4 flex items-center gap-4">
-                <label className="w-40 text-sm font-semibold text-zinc-900 dark:text-zinc-200">Cena paliva</label>
+                <label className="w-40 text-sm font-semibold text-[#313134] dark:text-zinc-200">Cena paliva</label>
                 <input
                   type="text"
                   inputMode="decimal"
                   required
                   value={fuelPriceStr}
                   onChange={e => setFuelPriceStr(e.target.value)}
-                  className="flex-grow bg-transparent text-sm font-medium text-zinc-950 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 outline-none text-right tabular-nums"
+                  className="flex-grow bg-transparent text-sm font-medium text-[#313134] dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 outline-none text-right tabular-nums"
                   placeholder="0.00"
                 />
                 <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500">€ / L</span>
@@ -314,7 +314,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
               <h3 className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Moje Autá</h3>
               <button
                 onClick={handleCreateCar}
-                className="text-xs font-bold text-zinc-950 dark:text-zinc-950 px-3 py-1 bg-zinc-100 dark:bg-[#4d4d50] rounded-full hover:bg-zinc-200 transition-colors"
+                className="text-xs font-bold text-[#313134] dark:text-[#313134] px-3 py-1 bg-zinc-100 dark:bg-[#4d4d50] rounded-full hover:bg-zinc-200 transition-colors"
               >
                 + Pridať
               </button>
@@ -327,7 +327,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
                   className="bg-white dark:bg-[#3f3f42] rounded-3xl p-4 border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm flex justify-between items-center active:bg-zinc-50 dark:active:bg-[#38383b]/30 transition-colors cursor-pointer"
                 >
                   <div>
-                    <div className="font-bold text-zinc-900 dark:text-zinc-200">{car.name}</div>
+                    <div className="font-bold text-[#313134] dark:text-zinc-200">{car.name}</div>
                     <div className="text-xs text-zinc-400 dark:text-zinc-500 font-mono font-bold uppercase">{car.licensePlate || 'Bez EČV'}</div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -371,7 +371,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
             <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm">
               <div className={`p-4 flex items-center justify-between gap-4 transition-colors ${notificationPermissionGranted ? 'bg-zinc-50 dark:bg-[#38383b]/50' : ''}`}>
                 <div>
-                  <label className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 block">Vyskakovacie notifikácie</label>
+                  <label className="text-sm font-semibold text-[#313134] dark:text-zinc-200 block">Vyskakovacie notifikácie</label>
                   <p className="text-[10px] text-zinc-500 dark:text-zinc-500 font-medium">Upozornenie pri dosiahnutí limitu</p>
                 </div>
                 <button
@@ -391,7 +391,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
                   disabled={notificationPermissionGranted}
                   className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-tight transition-all ${notificationPermissionGranted
                     ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 cursor-default'
-                    : 'bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 active:scale-95 shadow-lg shadow-zinc-200 dark:shadow-zinc-900'
+                    : 'bg-[#313134] dark:bg-zinc-100 text-white dark:text-[#313134] active:scale-95 shadow-lg shadow-zinc-200 dark:shadow-zinc-900'
                     }`}
                 >
                   {notificationPermissionGranted ? 'Povolené' : (typeof Notification !== 'undefined' && Notification.permission === 'denied') ? 'Zablokované' : 'Povoliť'}
@@ -404,7 +404,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, trips, onSave, requestNot
             <button
               onClick={handleSaveMain}
               disabled={isSaved}
-              className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98] shadow-lg ${isSaved ? 'bg-zinc-200 dark:bg-[#38383b] text-zinc-500' : 'bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-zinc-200 dark:shadow-zinc-900/20'}`}
+              className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98] shadow-lg ${isSaved ? 'bg-zinc-200 dark:bg-[#38383b] text-zinc-500' : 'bg-[#313134] dark:bg-zinc-100 text-white dark:text-[#313134] shadow-zinc-200 dark:shadow-zinc-900/20'}`}
             >
               {isSaved ? 'Uložené' : 'Uložiť hlavné nastavenia'}
             </button>

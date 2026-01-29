@@ -32,7 +32,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     return (
       <div className="space-y-4 animate-in fade-in duration-500">
         <div className="bg-[#3f3f42] rounded-3xl p-8 border border-[#4d4d50]/50 shadow-sm text-center">
-          <p className="text-zinc-400 text-sm font-medium">Pridajte svoje prvé auto v nastaveniach</p>
+          <p className="text-zinc-200 text-sm font-medium">Pridajte svoje prvé auto v nastaveniach</p>
         </div>
       </div>
     );
@@ -71,21 +71,21 @@ const Dashboard: React.FC<DashboardProps> = ({
           </button>
         </div>
 
-        <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-1">
+        <span className="text-xs font-semibold text-zinc-200 dark:text-zinc-300 uppercase tracking-wider block mb-1">
           {activeCar.name} • {stats.currentMonthName} {stats.currentYear}
         </span>
         <div className="flex items-baseline gap-2 mt-2">
           <span className="text-5xl font-bold tracking-tight text-[#313134] dark:text-white">{stats.monthlyDistance.toFixed(0)}</span>
-          <span className="text-xl font-medium text-zinc-400 dark:text-zinc-500">km</span>
+          <span className="text-xl font-medium text-zinc-200 dark:text-zinc-300">km</span>
         </div>
         {activeCar.licensePlate && (
-          <div className="mt-2 text-[10px] font-mono text-zinc-400 dark:text-zinc-500 font-bold tracking-wider">{activeCar.licensePlate}</div>
+          <div className="mt-2 text-[10px] font-mono text-zinc-200 dark:text-zinc-300 font-bold tracking-wider">{activeCar.licensePlate}</div>
         )}
       </div>
 
       {activeCar.serviceReminders && activeCar.serviceReminders.length > 0 && (
         <div className="bg-[#3f3f42] rounded-3xl p-5 border border-[#4d4d50]/50 shadow-sm space-y-5">
-          <h3 className="text-[11px] font-bold text-zinc-400 dark:text-zinc-400 uppercase tracking-widest px-1">Servisné Pripomienky</h3>
+          <h3 className="text-[11px] font-bold text-zinc-200 dark:text-zinc-200 uppercase tracking-widest px-1">Servisné Pripomienky</h3>
           <div className="space-y-6">
             {activeCar.serviceReminders.map(reminder => {
               if (reminder.type === 'date' && reminder.targetDate) {
@@ -100,16 +100,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <div key={reminder.id} className="space-y-2">
                     <div className="flex justify-between items-end px-1">
                       <div>
-                        <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-0.5">
+                        <span className="text-[10px] font-bold text-zinc-200 dark:text-zinc-300 uppercase tracking-wider block mb-0.5">
                           {reminder.name}
                         </span>
                         <div className="text-lg font-bold text-zinc-100 leading-none">
                           {Math.max(0, daysRemaining).toLocaleString()}
-                          <span className="text-[10px] font-medium text-zinc-400 ml-1.5 uppercase">dní do termínu</span>
+                          <span className="text-[10px] font-medium text-zinc-200 ml-1.5 uppercase">dní do termínu</span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500">termín: {dateFormatted}</span>
+                        <span className="text-[10px] font-bold text-zinc-200 dark:text-zinc-300">termín: {dateFormatted}</span>
                       </div>
                     </div>
 
@@ -131,16 +131,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <div key={reminder.id} className="space-y-2">
                   <div className="flex justify-between items-end px-1">
                     <div>
-                      <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-0.5">
+                      <span className="text-[10px] font-bold text-zinc-200 dark:text-zinc-300 uppercase tracking-wider block mb-0.5">
                         {reminder.name}
                       </span>
                       <div className="text-lg font-bold text-zinc-100 leading-none">
                         {Math.max(0, remaining).toLocaleString()}
-                        <span className="text-[10px] font-medium text-zinc-400 ml-1.5 uppercase">km do cieľa</span>
+                        <span className="text-[10px] font-medium text-zinc-200 ml-1.5 uppercase">km do cieľa</span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500">pri {((reminder.lastServiceOdometer || 0) + (reminder.interval || 0)).toLocaleString()} km</span>
+                      <span className="text-[10px] font-bold text-zinc-200 dark:text-zinc-300">pri {((reminder.lastServiceOdometer || 0) + (reminder.interval || 0)).toLocaleString()} km</span>
                     </div>
                   </div>
 
@@ -166,7 +166,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               </svg>
             </div>
             <div>
-              <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Práve prebieha • {activeCar.name}</div>
+              <div className="text-xs font-semibold text-zinc-300 dark:text-zinc-200">Práve prebieha • {activeCar.name}</div>
               <div className="text-sm font-bold text-[#313134] dark:text-white uppercase tracking-tight">{activeTrip.startTime} • {activeTrip.startOdometer} km</div>
             </div>
           </div>
@@ -184,8 +184,8 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       <div className="space-y-2">
         <div className="flex justify-between items-center px-1">
-          <h3 className="text-xs font-semibold text-zinc-500 dark:text-zinc-500 uppercase tracking-widest">Nedávne Aktivity</h3>
-          <button onClick={onViewAll} className="text-xs font-medium text-zinc-500 dark:text-zinc-500 hover:text-[#313134] dark:hover:text-white transition-colors">Všetky</button>
+          <h3 className="text-xs font-semibold text-zinc-300 dark:text-zinc-300 uppercase tracking-widest">Nedávne Aktivity</h3>
+          <button onClick={onViewAll} className="text-xs font-medium text-zinc-300 dark:text-zinc-300 hover:text-[#313134] dark:hover:text-white transition-colors">Všetky</button>
         </div>
 
         <div className="bg-[#3f3f42] rounded-3xl overflow-hidden border border-[#4d4d50]/50 shadow-sm">
@@ -202,14 +202,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                 tabIndex={0}
               >
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-[#38383b] rounded-xl flex items-center justify-center text-zinc-400">
+                  <div className="w-10 h-10 bg-[#38383b] rounded-xl flex items-center justify-center text-zinc-200">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
                   <div>
                     <div className="font-bold text-[#313134] dark:text-zinc-50 text-base tracking-tight">{trip.distanceKm.toFixed(1)} km</div>
-                    <div className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+                    <div className="text-xs font-medium text-zinc-200 dark:text-zinc-300 uppercase tracking-wide">
                       {new Date(trip.date).toLocaleDateString('sk-SK', { day: '2-digit', month: 'short' })} • {trip.startTime}
                     </div>
                   </div>
@@ -217,7 +217,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <div className="text-right flex items-center gap-3">
                   <div>
                     <div className="font-bold text-[#313134] dark:text-zinc-50 text-sm tabular-nums">{trip.totalCost.toFixed(2)} €</div>
-                    <div className="text-[10px] font-medium text-zinc-400 dark:text-zinc-500 uppercase">{trip.fuelConsumed.toFixed(1)} L</div>
+                    <div className="text-[10px] font-medium text-zinc-200 dark:text-zinc-300 uppercase">{trip.fuelConsumed.toFixed(1)} L</div>
                   </div>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-zinc-300 dark:text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -227,7 +227,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             ))
           ) : (
             <div className="p-12 text-center">
-              <p className="text-zinc-400 dark:text-zinc-400 text-xs font-medium uppercase tracking-widest">Žiadne záznamy</p>
+              <p className="text-zinc-200 dark:text-zinc-200 text-xs font-medium uppercase tracking-widest">Žiadne záznamy</p>
             </div>
           )}
         </div>

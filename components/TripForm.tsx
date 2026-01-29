@@ -145,22 +145,22 @@ const TripForm: React.FC<TripFormProps> = ({
       <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm">
         <div className="p-4 border-b border-zinc-100 dark:border-[#4d4d50]/30 flex justify-between items-center">
           <label className="text-sm font-semibold text-[#313134] dark:text-zinc-200">Aktuálny Čas</label>
-          <div className="text-sm font-medium text-zinc-500 dark:text-zinc-400 tabular-nums">{currentTime || '00:00'}</div>
+          <div className="text-sm font-medium text-zinc-300 dark:text-zinc-200 tabular-nums">{currentTime || '00:00'}</div>
         </div>
         <div className="p-4 flex justify-between items-center">
           <label className="text-sm font-semibold text-[#313134] dark:text-zinc-200">Dátum</label>
-          <div className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{currentDate}</div>
+          <div className="text-sm font-medium text-zinc-300 dark:text-zinc-200">{currentDate}</div>
         </div>
       </div>
 
       <form onSubmit={activeTrip ? handleEnd : handleStart} className="space-y-8">
         <div className="space-y-2">
-          <h3 className="px-4 text-[11px] font-semibold text-zinc-500 dark:text-warm-gray-400 uppercase tracking-widest">Údaje o jazde</h3>
+          <h3 className="px-4 text-[11px] font-semibold text-zinc-300 dark:text-warm-gray-400 uppercase tracking-widest">Údaje o jazde</h3>
           <div className="bg-white dark:bg-[#3f3f42] rounded-3xl overflow-hidden border border-zinc-200 dark:border-[#4d4d50]/50 shadow-sm">
             <div className="p-4 border-b border-zinc-100 dark:border-[#4d4d50]/30 space-y-4">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-semibold text-[#313134] dark:text-zinc-200">Stav tachometra</label>
-                <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500">km</span>
+                <span className="text-xs font-semibold text-zinc-200 dark:text-zinc-300">km</span>
               </div>
 
               <div className="flex items-center justify-between gap-1 bg-zinc-50 dark:bg-[#38383b]/50 p-1.5 rounded-2xl">
@@ -229,7 +229,7 @@ const TripForm: React.FC<TripFormProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="w-full py-2 text-zinc-400 dark:text-zinc-500 text-sm font-medium hover:text-[#313134] dark:hover:text-white transition-colors"
+            className="w-full py-2 text-zinc-200 dark:text-zinc-300 text-sm font-medium hover:text-[#313134] dark:hover:text-white transition-colors"
           >
             Zrušiť
           </button>

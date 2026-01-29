@@ -338,7 +338,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#313134] flex flex-col text-zinc-200 selection:bg-zinc-500/30 antialiased overflow-x-hidden relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#313134] flex flex-col text-zinc-50 selection:bg-zinc-500/30 antialiased overflow-x-hidden relative transition-colors duration-300">
       <header className="sticky top-0 z-50 bg-[#313134]/80 backdrop-blur-xl border-b border-[#4d4d50]/50 px-6 py-4 flex justify-center items-center">
         <h1 className="text-lg font-semibold tracking-tight">Kniha Jázd</h1>
       </header>
@@ -412,7 +412,7 @@ const App: React.FC = () => {
               <div className="bg-[#3f3f42] rounded-3xl p-6 border border-[#4d4d50]/50 shadow-sm space-y-6">
                 <div>
                   <h3 className="text-lg font-bold text-zinc-100 mb-2">Prehľad funkcií</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-sm text-zinc-200 leading-relaxed">
                     Kniha Jázd Pro je navrhnutá pre jednoduchú a prehľadnú evidenciu vašich ciest s dôrazom na rýchlosť a natívny zážitok.
                   </p>
                 </div>
@@ -426,7 +426,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-zinc-100">Mesačné štatistiky</h4>
-                      <p className="text-xs text-zinc-500">Okamžitý prehľad o najazdených kilometroch v aktuálnom mesiaci priamo na hlavnej obrazovke.</p>
+                      <p className="text-xs text-zinc-300">Okamžitý prehľad o najazdených kilometroch v aktuálnom mesiaci priamo na hlavnej obrazovke.</p>
                     </div>
                   </div>
 
@@ -438,7 +438,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-zinc-100">Inteligentné pripomienky</h4>
-                      <p className="text-xs text-zinc-500">Sledujte zostávajúce kilometre do servisu, výmeny oleja alebo klimatizácie s grafickým ukazovateľom.</p>
+                      <p className="text-xs text-zinc-300">Sledujte zostávajúce kilometre do servisu, výmeny oleja alebo klimatizácie s grafickým ukazovateľom.</p>
                     </div>
                   </div>
 
@@ -450,7 +450,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-[#313134] dark:text-zinc-100">Výpočet nákladov</h4>
-                      <p className="text-xs text-zinc-500">Aplikácia automaticky počíta cenu paliva a spotrebu pre každú jazdu na základe vašich nastavení.</p>
+                      <p className="text-xs text-zinc-300">Aplikácia automaticky počíta cenu paliva a spotrebu pre každú jazdu na základe vašich nastavení.</p>
                     </div>
                   </div>
 
@@ -462,7 +462,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-[#313134] dark:text-zinc-100">Rýchly záznam</h4>
-                      <p className="text-xs text-zinc-500">Odštartujte jazdu jedným kliknutím. Aplikácia si pamätá váš posledný stav tachometra.</p>
+                      <p className="text-xs text-zinc-300">Odštartujte jazdu jedným kliknutím. Aplikácia si pamätá váš posledný stav tachometra.</p>
                     </div>
                   </div>
 
@@ -474,7 +474,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-[#313134] dark:text-zinc-100">Správa flotily</h4>
-                      <p className="text-xs text-zinc-500">Pridajte neobmedzený počet áut a spravujte celú firemnú alebo rodinnú flotilu na jednom mieste.</p>
+                      <p className="text-xs text-zinc-300">Pridajte neobmedzený počet áut a spravujte celú firemnú alebo rodinnú flotilu na jednom mieste.</p>
                     </div>
                   </div>
 
@@ -486,7 +486,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-[#313134] dark:text-zinc-100">Offline fungovanie (PWA)</h4>
-                      <p className="text-xs text-zinc-500">Pridajte si apku na plochu iPhone. Funguje bleskovo aj bez internetu a ukladá dáta priamo v zariadení.</p>
+                      <p className="text-xs text-zinc-300">Pridajte si apku na plochu iPhone. Funguje bleskovo aj bez internetu a ukladá dáta priamo v zariadení.</p>
                     </div>
                   </div>
                 </div>
@@ -509,7 +509,7 @@ const App: React.FC = () => {
         <div className="max-w-lg mx-auto flex justify-between items-center h-16 px-6">
           <button
             onClick={() => setView('dashboard')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'dashboard' ? 'text-zinc-50' : 'text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'dashboard' ? 'text-zinc-50' : 'text-zinc-300'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'dashboard' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -522,7 +522,7 @@ const App: React.FC = () => {
               setHighlightedTripId(null);
               setView('history');
             }}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'history' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'history' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'history' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -532,9 +532,9 @@ const App: React.FC = () => {
 
           <button
             onClick={() => view === 'add' ? setView('dashboard') : setView('add')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'add' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'add' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
           >
-            <div className={`p-1.5 rounded-full shadow-lg transition-transform active:scale-95 ${activeTrip ? 'bg-red-500 text-white animate-pulse' : view === 'add' ? 'bg-[#313134] dark:bg-zinc-50 text-white dark:text-[#313134]' : 'bg-white dark:bg-zinc-900 text-[#313134] dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700'}`}>
+            <div className={`p-1.5 rounded-full shadow-lg transition-transform active:scale-95 ${activeTrip ? 'bg-red-500 text-white animate-pulse' : view === 'add' ? 'bg-[#313134] dark:bg-zinc-50 text-white dark:text-[#313134]' : 'bg-white dark:bg-zinc-900 text-[#313134] dark:text-zinc-50 border border-zinc-200 dark:border-zinc-700'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={activeTrip ? "M6 18L18 6M6 6l12 12" : "M12 4v16m8-8H4"} />
               </svg>
@@ -543,7 +543,7 @@ const App: React.FC = () => {
 
           <button
             onClick={() => setView('info')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'info' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'info' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'info' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -553,7 +553,7 @@ const App: React.FC = () => {
 
           <button
             onClick={() => setView('settings')}
-            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'settings' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-400 dark:text-zinc-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors ${view === 'settings' ? 'text-[#313134] dark:text-zinc-50' : 'text-zinc-200 dark:text-zinc-300'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px]" fill={view === 'settings' ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />

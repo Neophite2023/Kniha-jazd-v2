@@ -4,10 +4,9 @@ const REPO_NAME = '/Kniha-jazd-v2/'; // Repository name for GitHub Pages
 // Assets to cache immediately
 const ASSETS = [
   './',
-  './index.html',
-  './manifest.json',
-  'https://cdn-icons-png.flaticon.com/512/2555/2555013.png',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'
+  'index.html',
+  'manifest.json',
+  'icon.png'
 ];
 
 self.addEventListener('install', (event) => {

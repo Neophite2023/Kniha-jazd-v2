@@ -9,29 +9,16 @@
 
   <!-- iOS PWA meta tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Kniha Jázd Pro">
-  <link rel="apple-touch-icon" href="./icon.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Kniha Jázd">
+  <link rel="apple-touch-icon" href="icon.png">
 
-  <!-- iPhone X/XS/11Pro/12Pro Splash Screens (Optional but good for native feel) -->
-  <link rel="apple-touch-startup-image" href="./icon.png">
+  <!-- iPhone Splash Screens -->
+  <link rel="apple-touch-startup-image" href="icon.png">
 
-  <link rel="manifest" href="/Kniha-jazd-v2/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1e1e20">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-        }
-      }
-    }
-  </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <style>
@@ -43,6 +30,17 @@
       overscroll-behavior-y: none;
       margin: 0;
       padding: 0;
+    }
+
+    #root:empty::before {
+      content: 'Načítavam aplikáciu...';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-size: 14px;
+      color: #71717a;
+      background-color: #313134;
     }
 
     .view-transition {
